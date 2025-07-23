@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 
-<!-- 
+<!--
 #########################
-#    Faxxxmaster 2025 
+#    Faxxxmaster 2025
 #########################
 -->
 
@@ -28,7 +28,7 @@
             <button id="theme-switcher" class="theme-switcher" title="Theme wechseln">
                 <span class="theme-icon">🌙</span>
             </button>
-            
+
             <!-- Three link buttons added here -->
             <a href="https://claude.ai/new" class="top-right-link-button button-1" target="_blank"></a>
             <a href="https://gemini.google.com/app" class="top-right-link-button button-2" target="_blank"></a>
@@ -171,7 +171,7 @@
                         <li><a href="https://overthewire.org/wargames//">OverTheWire</a></li>
                         <li><a href="https://vulnhub.com/single/">VulnHub</a></li>
                         <li><a href="https://bootstrap.academy/">academy</a></li>
-                        <li><a href="#">extra 1</a></li>
+                        <li><a href="https://linuxjourney.com/">linuxjourney</a></li>
                         <li><a href="#">extra 2</a></li>
                         <li><a href="#">extra 3</a></li>
                         <li><a href="#">extra 5</a></li>
@@ -188,21 +188,21 @@
         const themeSwitcher = document.getElementById('theme-switcher');
         const themeIcon = document.querySelector('.theme-icon');
         const body = document.body;
-        
+
         // Check for saved theme or default to 'dark'
         const currentTheme = localStorage.getItem('theme') || 'dark';
         body.setAttribute('data-theme', currentTheme);
         updateThemeIcon(currentTheme);
-        
+
         function updateThemeIcon(theme) {
             themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
             themeSwitcher.title = theme === 'dark' ? 'Helles Theme aktivieren' : 'Dunkles Theme aktivieren';
         }
-        
+
         themeSwitcher.addEventListener('click', () => {
             const currentTheme = body.getAttribute('data-theme');
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            
+
             body.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
             updateThemeIcon(newTheme);
