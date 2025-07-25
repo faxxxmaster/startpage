@@ -1,10 +1,20 @@
-<!DOCTYPE html><html lang="de">
+<!DOCTYPE html>
+
+<!--
+#########################
+#    Faxxxmaster 2025
+#########################
+-->
+
+<html lang="de">
+
 <head>
     <meta charset="UTF-8">
     <title>~/startpage</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
+
 <body>
     <div class="container">
         <div class="left-container">
@@ -12,24 +22,25 @@
                 <img src="cat.gif" />
             </div>
         </div>
+
         <div class="right-container">
+            <!-- Theme switcher button -->
             <button id="theme-switcher" class="theme-switcher" title="Theme wechseln">
                 <span class="theme-icon">🌙</span>
             </button>
-            <a href="https://claude.ai/new" class="top-right-link-button button-7" target="_blank" title="Claude AI - Anthropics KI-Assistent">🤖</a>
-            <a href="https://gemini.google.com/app" class="top-right-link-button button-6" target="_blank" title="Google Gemini - Googles KI-Chatbot">✨</a>
-            <a href="https://chatgpt.com" class="top-right-link-button button-8" target="_blank" title="ChatGPT - OpenAIs KI-Assistent">💬</a>
-            <a href="https://chat.deepseek.com" class="top-right-link-button button-5" target="_blank" title="DeepSeek - Chinesischer KI-Chatbot">🔍</a>
-            <a href="https://www.perplexity.ai" class="top-right-link-button button-4" target="_blank" title="Perplexity - KI-Suchmaschine mit Quellenangaben">🧠</a>
-            <a href="https://grok.x.com" class="top-right-link-button button-3" target="_blank" title="Grok - X/Twitter KI-Assistent">🚀</a>
-            <a href="https://www.duck.ai" class="top-right-link-button button-1" target="_blank" title="Duck AI - DuckDuckGo KI-Chat">🦆</a>
-            <a href="https://chat.mistral.ai" class="top-right-link-button button-2" target="_blank" title="Le Chat - Mistrals KI-Assistent">💭</a>
+
+            <!-- Three link buttons added here -->
+            <a href="https://claude.ai/new" class="top-right-link-button button-1" target="_blank"></a>
+            <a href="https://gemini.google.com/app" class="top-right-link-button button-2" target="_blank"></a>
+            <a href="https://chatgpt.com" class="top-right-link-button button-3" target="_blank"></a>
             <div class="datetime-container">
                 <div id="current-datetime"></div>
             </div>
             <div class="head">
+                <!-- Modified for search bar functionality -->
                 <span id="prompt-prefix">> cd ~/</span><span id="search-text"></span><span id="blinker" class="blinking">_</span>
             </div>
+
             <div class="bookmarks">
                 <div class="category">
                     <div class="links">
@@ -39,13 +50,16 @@
                         <li><a href="https://pad.faxxxmaster.cc/">DumbPad</a></li>
                         <li><a href="https://mail.google.com/">gmail</a></li>
                         <li><a href="https://calendar.google.com/calendar/u/0">calendar</a></li>
+                        <!-- Links beyond the first 5 -->
                         <li><a href="https://www.swisstransfer.com/">SwissTransfer</a></li>
                         <li><a href="https://www.tailscale.com/">tailscale</a></li>
                         <li><a href="#">extra 3</a></li>
-                        <li><a href="#">extra 4</a></li>		        <li><a href="#">extra 5</a></li>
+                        <li><a href="#">extra 4</a></li>
+		        <li><a href="#">extra 5</a></li>
                     </div>
                     <button class="toggle-links-button">></button>
                 </div>
+
                 <div class="category">
                     <div class="links">
                         <li class="title">dev</li>
@@ -55,11 +69,14 @@
                         <li><a href="https://noted.lol/">noted</a></li>
                         <li><a href="https://www.trackawesomelist.com/awesome-selfhosted/awesome-selfhosted/">awesome</a></li>
                         <li><a href="#">extra 1</a></li>
-                        <li><a href="#">extra 2</a></li>			<li><a href="#">extra 3</a></li>
-                        <li><a href="#">extra 4</a></li>			<li><a href="#">extra 5</a></li>
+                        <li><a href="#">extra 2</a></li>
+			<li><a href="#">extra 3</a></li>
+                        <li><a href="#">extra 4</a></li>
+			<li><a href="#">extra 5</a></li>
                     </div>
                     <button class="toggle-links-button">></button>
                 </div>
+
                 <div class="category">
                     <div class="links">
                         <li class="title">pics</li>
@@ -69,11 +86,14 @@
                         <li><a href="https://www.deviantart.com/">deviantart</a></li>
                         <li><a href="https://www.uhdpaper.com">uhdpaper</a></li>
                         <li><a href="https://www.myrecipes.com/">recipe</a></li>
-                        <li><a href="#">extra 2</a></li>			<li><a href="#">extra 3</a></li>
-                        <li><a href="#">extra 4</a></li>			<li><a href="#">extra 5</a></li>
+                        <li><a href="#">extra 2</a></li>
+			<li><a href="#">extra 3</a></li>
+                        <li><a href="#">extra 4</a></li>
+			<li><a href="#">extra 5</a></li>
                     </div>
                     <button class="toggle-links-button">></button>
                 </div>
+
                 <div class="category">
                     <div class="links">
                         <li class="title">play</li>
@@ -83,11 +103,14 @@
                         <li><a href="https://filmfans.org">filmfans</a></li>
                         <li><a href="https://boerse.cx">boerse</a></li>
                         <li><a href="#">extra 1</a></li>
-                        <li><a href="#">extra 2</a></li>			<li><a href="#">extra 3</a></li>
-                        <li><a href="#">extra 4</a></li>			<li><a href="#">extra 5</a></li>
+                        <li><a href="#">extra 2</a></li>
+			<li><a href="#">extra 3</a></li>
+                        <li><a href="#">extra 4</a></li>
+			<li><a href="#">extra 5</a></li>
                     </div>
                     <button class="toggle-links-button">></button>
                 </div>
+
                 <div class="category">
                     <div class="links">
                         <li class="title">priv</li>
@@ -104,6 +127,7 @@
                     </div>
                     <button class="toggle-links-button">></button>
                 </div>
+
                 <div class="category">
                     <div class="links">
                         <li class="title">social</li>
@@ -113,11 +137,14 @@
                         <li><a href="https://www.twitch.tv/">twitch</a></li>
                         <li><a href="https://discord.com/channels/862292009423470592/1150723027986813018/">discord</a></li>
                         <li><a href="https://4chan.org/">4chan</a></li>
-                        <li><a href="https://www.instagram.com/">instagram</a></li>			           <li><a href="https://mynoise.net/">mynoise</a></li>
-                        <li><a href="https://dab.yeet.su/">music</a></li>		            	<li><a href="https://animethemes.moe/">animethemes</a></li>
+                        <li><a href="https://www.instagram.com/">instagram</a></li>
+			           <li><a href="https://mynoise.net/">mynoise</a></li>
+                        <li><a href="https://dab.yeet.su/">music</a></li>
+		            	<li><a href="https://animethemes.moe/">animethemes</a></li>
                     </div>
                     <button class="toggle-links-button">></button>
                 </div>
+
                 <div class="category">
                     <div class="links">
                         <li class="title">Work</li>
@@ -127,11 +154,15 @@
                         <li><a href="https://www.customercontrolpanel.de/">NCCP</a></li>
                         <li><a href="https://najmossalahin.github.io/Kanji_Tool/">kanji</a></li>
                         <li><a href="#">extra 1</a></li>
-                        <li><a href="#">extra 2</a></li>			<li><a href="#">extra 3</a></li>
-                        <li><a href="#">extra 4</a></li>			<li><a href="#">extra 5</a></li>
+                        <li><a href="#">extra 2</a></li>
+			<li><a href="#">extra 3</a></li>
+                        <li><a href="#">extra 4</a></li>
+			<li><a href="#">extra 5</a></li>
                     </div>
                     <button class="toggle-links-button">></button>
                 </div>
+
+                <!-- New 'misc' category added for equal distribution into two rows -->
                 <div class="category">
                     <div class="links">
                         <li class="title">learn</li>
@@ -151,6 +182,7 @@
             </div>
         </div>
     </div>
+
     <script>
         // Theme switcher functionality
         const themeSwitcher = document.getElementById('theme-switcher');
@@ -170,6 +202,7 @@
         themeSwitcher.addEventListener('click', () => {
             const currentTheme = body.getAttribute('data-theme');
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
             body.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
             updateThemeIcon(newTheme);
@@ -178,6 +211,7 @@
         // Function to update the clock and date
         function updateDateTime() {
             const now = new Date();
+
             // Format time for 24-hour clock
             const hours = String(now.getHours()).padStart(2, '0');
             const minutes = String(now.getMinutes()).padStart(2, '0');
@@ -190,9 +224,9 @@
 
             document.getElementById('current-datetime').textContent = `${dateString} ${timeString}`;
         }
-
         // Update the clock every second
         setInterval(updateDateTime, 1000);
+
         // Initial call to display the time immediately
         updateDateTime();
 
@@ -231,6 +265,7 @@
             } else if (event.key.length === 1) {
                 searchQuery += event.key;
             }
+
             searchTextElement.textContent = searchQuery;
         });
 
@@ -289,6 +324,7 @@
             });
         });
     </script>
+
     <style>
         /* Dark Theme (Catppuccin Mocha) - Default */
         :root {
@@ -338,16 +374,19 @@
             backdrop-filter: blur(10px);
             color: var(--color-fg);
         }
+
         .theme-switcher:hover {
             transform: scale(1.1);
             box-shadow: 0 4px 12px var(--color-shadow);
             background-color: var(--color-link-hover);
             color: var(--color-bg);
         }
+
         .theme-icon {
             transition: transform 0.3s ease;
             filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
         }
+
         .theme-switcher:hover .theme-icon {
             transform: rotate(15deg);
             filter: none;
@@ -359,9 +398,11 @@
             color: var(--color-fg);
             transition: background-color 0.3s ease, color 0.3s ease;
         }
+
         .datetime-container {
             color: var(--color-fg);
         }
+
         .category {
             border: 1px solid var(--color-border);
             box-shadow: 0 4px 8px var(--color-shadow);
@@ -369,47 +410,33 @@
             transition: all 0.3s ease;
         }
 
-        /* ANPASSUNGEN FÜR DARK THEME: Bessere Lesbarkeit der AI-Icons */
         .top-right-link-button {
-            background-color: #333; /* Dunklerer Hintergrund für besseren Kontrast im Dark Theme */
-            color: #eee; /* Helle Textfarbe für die Symbole im Dark Theme */
-            text-shadow: 0 0 3px rgba(0, 0, 0, 0.7); /* Leichter Schatten für bessere Sichtbarkeit */
-            transition: background-color 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
+            background-color: var(--color-button-bg);
+            transition: background-color 0.3s ease;
         }
+
         .top-right-link-button:hover {
-            background-color: var(--color-link-hover);
-            color: var(--color-bg);
-            text-shadow: none;
-        }
-
-        /* NEUE ANPASSUNGEN FÜR LIGHT THEME: Bessere Lesbarkeit der AI-Icons */
-        [data-theme="light"] .top-right-link-button {
-            background-color: #f0f0f0; /* Hellerer Hintergrund für Icons im Light Theme */
-            color: #333; /* Dunklere Textfarbe für die Symbole im Light Theme */
-            text-shadow: 0 0 2px rgba(255, 255, 255, 0.7); /* Hellerer Schatten für bessere Sichtbarkeit */
-        }
-
-        /* Hover-Effekt für Light Theme Icons */
-        [data-theme="light"] .top-right-link-button:hover {
-            background-color: var(--color-link-hover); /* Verwendet die Light Theme Hover-Farbe */
-            color: var(--color-bg); /* Passt die Textfarbe an den Hintergrund des Hover-Effekts an */
-            text-shadow: none;
+            background-color: var(--color-button-hover);
         }
 
         .toggle-links-button {
             color: var(--color-link-hover);
             transition: color 0.3s ease;
         }
+
         .toggle-links-button:hover {
             color: var(--color-fg);
         }
+
         a:link {
             color: var(--color-link);
             transition: color 0.3s ease;
         }
+
         a:visited {
             color: var(--color-link-visited);
         }
+
         a:hover {
             color: var(--color-link-hover);
             text-shadow: 0 0 5px var(--color-link-hover);
@@ -427,9 +454,11 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
+
         html::-webkit-scrollbar {
             display: none;
         }
+
         .container {
             display: grid;
             grid-template-columns: 1fr minmax(450px, 600px) minmax(700px, 1fr) 1fr;
@@ -440,6 +469,7 @@
             min-height: 100%;
             width: 100%;
         }
+
         .left-container {
             grid-area: left;
             aspect-ratio: 1/1;
@@ -449,6 +479,7 @@
             justify-content: center;
             align-items: center;
         }
+
         .right-container {
             grid-area: right;
             height: 50%;
@@ -459,6 +490,7 @@
             justify-content: center;
             padding-right: 0px;
         }
+
         .datetime-container {
             font-size: 1.47em;
             margin-bottom: 20px;
@@ -466,6 +498,7 @@
             width: 100%;
             box-sizing: border-box;
         }
+
         .gif img {
             max-width: 100%;
             max-height: 100%;
@@ -473,6 +506,7 @@
             width: auto;
             margin-top: 50px;
         }
+
         .head {
             display: flex;
             flex-direction: row;
@@ -482,10 +516,12 @@
             margin-top: 0px;
             white-space: nowrap;
         }
+
         #prompt-prefix, #search-text, #blinker {
             display: inline-block;
             vertical-align: middle;
         }
+
         .bookmarks {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -498,9 +534,11 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
+
         .bookmarks::-webkit-scrollbar {
             display: none;
         }
+
         .category {
             display: flex;
             flex-direction: column;
@@ -513,6 +551,7 @@
             border-radius: 8px;
             position: relative;
         }
+
         .links {
             display: flex;
             flex-direction: column;
@@ -521,57 +560,51 @@
             padding-bottom: 10px;
             width: 100%;
         }
+
         .title {
             font-size: 21px;
             margin-bottom: 5px;
         }
+
         li {
             font-size: 16.8px;
             list-style-type: none;
             padding: 3px;
         }
+
         a:link {
             text-decoration: none;
         }
+
         .blinking {
             animation: opacity 1s ease-in-out infinite;
             opacity: 1;
         }
+
         @keyframes opacity {
             0% { opacity: 1; }
             50% { opacity: 0; }
             100% { opacity: 1; }
         }
+
         .top-right-link-button {
             position: fixed;
             top: 15px;
-            width: 24px;
-            height: 24px;
-            border-radius: 6px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
             border: none;
             cursor: pointer;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
             z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: block;
             text-decoration: none;
-            font-size: 16px;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
-        .top-right-link-button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        }
         .button-1 { right: 15px; }
-        .button-2 { right: 47px; }
-        .button-3 { right: 79px; }
-        .button-4 { right: 111px; }
-        .button-5 { right: 143px; }
-        .button-6 { right: 175px; }
-        .button-7 { right: 207px; }
-        .button-8 { right: 239px; }
+        .button-2 { right: 35px; }
+        .button-3 { right: 55px; }
+
         .toggle-links-button {
             background: none;
             border: none;
@@ -581,11 +614,13 @@
             padding: 0;
             line-height: 1;
         }
+
         @media (max-width: 992px) {
             .bookmarks {
                 grid-template-columns: repeat(3, 1fr);
             }
         }
+
         @media (max-width: 768px) {
             .bookmarks {
                 grid-template-columns: repeat(2, 1fr);
@@ -595,6 +630,7 @@
             .title { font-size: 1.365em; }
             li { font-size: 0.945em; padding: 4px; }
         }
+
         @media (max-width: 480px) {
             .bookmarks {
                 grid-template-columns: 1fr;
@@ -603,4 +639,5 @@
         }
     </style>
 </body>
+
 </html>
