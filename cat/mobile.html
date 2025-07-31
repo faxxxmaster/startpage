@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>~/startpage</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --bg: #000;
+            --fg: #fff;
+            --link: #aaa;
+            --link-visited: #999;
+            --link-hover: #f00;
+            --border: #fff;
+        }
+
+        * { box-sizing: border-box; }
+
+        html, body {
+            font-family: "Fira Code", monospace;
+            background: var(--bg);
+            color: var(--fg);
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            padding: 20px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .datetime {
+            font-size: 1.4em;
+            text-align: center;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+
+        .terminal {
+            font-size: 2em;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            overflow-wrap: break-word;
+        }
+
+        .blink {
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        .bookmarks {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 900px;
+        }
+
+        .category {
+            border: 1px solid var(--border);
+            padding: 15px;
+            text-align: center;
+        }
+
+        .category-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--fg);
+        }
+
+        .links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .links li {
+            margin: 5px 0;
+        }
+
+        .links a {
+            color: var(--link);
+            text-decoration: none;
+        }
+
+        .links a:visited {
+            color: var(--link-visited);
+        }
+
+        .links a:hover {
+            color: var(--link-hover);
+        }
+
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: var(--link-hover);
+            font-size: 1.2em;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+                gap: 20px;
+            }
+
+            .bookmarks {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+
+            .terminal {
+                font-size: 1.5em;
+            }
+
+            .datetime {
+                font-size: 1.2em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .bookmarks {
+                grid-template-columns: 1fr;
+            }
+
+            .terminal {
+                font-size: 1.2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="datetime" id="datetime"></div>
+
+        <div class="terminal">
+            <span>> Faxxxmaster ~/</span>
+            <span id="search-text"></span>
+            <span class="blink">_</span>
+        </div>
+
+        <div class="bookmarks">
+            <div class="category">
+                <div class="category-title">[tools]</div>
+                <ul class="links" data-page="0">
+                    <li><a href="https://pad.faxxxmaster.cc/">DumbPad</a></li>
+                    <li><a href="https://www.swisstransfer.com/">SwissTransfer</a></li>
+                    <li><a href="https://paaster.io/">pastebin</a></li>
+                    <li><a href="https://termbin.com/">termbin</a></li>
+                    <li><a href="https://it-tools.tech/">ItTools</a></li>
+                    <li><a href="https://omnitools.app/">OmniTools</a></li>
+                    <li><a href="https://www.deepl.com/de/translator/l/en/de">DeepL</a></li>
+                    <li><a href="https://translate.liste.cc/">freeTranslate</a></li>
+                    <li><a href="https://speed.cloudflare.com/">speedtest</a></li>
+                    <li><a href="#">placeholder</a></li>
+                </ul>
+                <button class="toggle-btn">></button>
+            </div>
+
+            <div class="category">
+                <div class="category-title">[dev]</div>
+                <ul class="links" data-page="0">
+                    <li><a href="https://github.com/faxxxmaster/">GitHub</a></li>
+                    <li><a href="https://terminaltrove.com/">terminaltrove</a></li>
+                    <li><a href="https://selfh.st/">self-hosted</a></li>
+                    <li><a href="https://www.trackawesomelist.com/awesome-selfhosted/awesome-selfhosted/">awesome</a></li>
+                    <li><a href="https://noted.lol/">noted</a></li>
+                    <li><a href="https://wiki.archlinux.org/title/Main_page">ArchWiki</a></li>
+                    <li><a href="https://wiki.cachyos.org/cachyos_basic/download/">CachyOS-Wiki</a></li>
+                    <li><a href="#">placeholder</a></li>
+                    <li><a href="#">placeholder</a></li>
+                    <li><a href="#">placeholder</a></li>
+                </ul>
+                <button class="toggle-btn">></button>
+            </div>
+
+            <div class="category">
+                <div class="category-title">[pics]</div>
+                <ul class="links" data-page="0">
+                    <li><a href="https://ultrawidewallpapers.net/">ultrawide</a></li>
+                    <li><a href="https://wallhaven.cc/">wallhaven</a></li>
+                    <li><a href="https://moewalls.com/">moewalls</a></li>
+                    <li><a href="https://www.deviantart.com/">deviantart</a></li>
+                    <li><a href="https://www.uhdpaper.com">uhdpaper</a></li>
+                    <li><a href="https://www.pxfuel.com/">pxfuel</a></li>
+                    <li><a href="https://www.remove.bg/de/">remove.bg</a></li>
+                    <li><a href="https://mazanoke.com/">mazanoke</a></li>
+                    <li><a href="https://www.photopea.com/">photopea</a></li>
+                    <li><a href="#">placeholder</a></li>
+                </ul>
+                <button class="toggle-btn">></button>
+            </div>
+
+            <div class="category">
+                <div class="category-title">[play]</div>
+                <ul class="links" data-page="0">
+                    <li><a href="https://monkeytype.com/">monkeytype</a></li>
+                    <li><a href="https://store.steampowered.com/?l=german/">steam</a></li>
+                    <li><a href="https://serienfans.org/">serienfans</a></li>
+                    <li><a href="https://filmfans.org">filmfans</a></li>
+                    <li><a href="https://boerse.cx">boerse</a></li>
+                    <li><a href="#">placeholder</a></li>
+                    <li><a href="#">placeholder</a></li>
+                    <li><a href="#">placeholder</a></li>
+                    <li><a href="#">placeholder</a></li>
+                    <li><a href="#">placeholder</a></li>
+                </ul>
+                <button class="toggle-btn">></button>
+            </div>
+
+            <div class="category">
+                <div class="category-title">[priv]</div>
+                <ul class="links" data-page="0">
+                    <li><a href="https://bilder.cienciala.eu/">bilder</a></li>
+                    <li><a href="https://immich.cienciala.eu">immich</a></li>
+                    <li><a href="https://wiki.cienciala.eu">wiki</a></li>
+                    <li><a href="https://mail.google.com/">gmail</a></li>
+                    <li><a href="https://calendar.google.com/calendar/u/0">calendar</a></li>
+                    <li><a href="https://ksuite.infomaniak.com/">infomaniak</a></li>
+                    <li><a href="https://vaultwarden.liste.cc/#/signup">vaultwarden</a></li>
+                    <li><a href="https://cobalt.tools/">cobalt tools</a></li>
+                    <li><a href="https://bdixtv24.com/live-tv/">bdix</a></li>
+                    <li><a href="https://animepahe.ru">animepahe</a></li>
+                </ul>
+                <button class="toggle-btn">></button>
+            </div>
+
+            <div class="category">
+                <div class="category-title">[social]</div>
+                <ul class="links" data-page="0">
+                    <li><a href="https://youtube.com/">youtube</a></li>
+                    <li><a href="https://x.com/">x</a></li>
+                    <li><a href="https://reddit.com/">reddit</a></li>
+                    <li><a href="https://www.twitch.tv/">twitch</a></li>
+                    <li><a href="https://discord.com/channels/862292009423470592/1150723027986813018/">discord</a></li>
+                    <li><a href="https://4chan.org/">4chan</a></li>
+                    <li><a href="https://www.instagram.com/">instagram</a></li>
+                    <li><a href="https://mynoise.net/">mynoise</a></li>
+                    <li><a href="https://dab.yeet.su/">music</a></li>
+                    <li><a href="https://animethemes.moe/">animethemes</a></li>
+                </ul>
+                <button class="toggle-btn">></button>
+            </div>
+
+            <div class="category">
+                <div class="category-title">[work]</div>
+                <ul class="links" data-page="0">
+                    <li><a href="https://inwx.de/">INWX</a></li>
+                    <li><a href="https://www.dynadot.com/">DynaDot</a></li>
+                    <li><a href="https://www.servercontrolpanel.de/SCP/Home">SCP</a></li>
+                    <li><a href="https://www.customercontrolpanel.de/">NCCP</a></li>
+                    <li><a href="https://najmossalahin.github.io/Kanji_Tool/">kanji</a></li>
+                    <li><a href="#">placeholder</a></li>
+                    <li><a href="#">placeholder</a></li>
+                    <li><a href="#">placeholder</a></li>
+                    <li><a href="#">placeholder</a></li>
+                    <li><a href="#">placeholder</a></li>
+                </ul>
+                <button class="toggle-btn">></button>
+            </div>
+
+            <div class="category">
+                <div class="category-title">[learn]</div>
+                <ul class="links" data-page="0">
+                    <li><a href="https://hackthebox.com/">HackTheBox</a></li>
+                    <li><a href="https://tryhackme.com/">TryHackMe</a></li>
+                    <li><a href="https://overthewire.org/wargames/">OverTheWire</a></li>
+                    <li><a href="https://vulnhub.com/single/">VulnHub</a></li>
+                    <li><a href="https://bootstrap.academy/">academy</a></li>
+                    <li><a href="https://linuxjourney.com/">linuxjourney</a></li>
+                    <li><a href="https://regex101.com/">regex101</a></li>
+                    <li><a href="https://explainshell.com/">explainshell</a></li>
+                    <li><a href="#">placeholder</a></li>
+                    <li><a href="#">placeholder</a></li>
+                </ul>
+                <button class="toggle-btn">></button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DateTime Update
+        function updateDateTime() {
+            const now = new Date();
+            const time = now.toLocaleTimeString('de-DE', { hour12: false });
+            const date = now.toLocaleDateString('de-DE', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            document.getElementById('datetime').textContent = `${date} ${time}`;
+        }
+
+        setInterval(updateDateTime, 1000);
+        updateDateTime();
+
+        // Search Functionality
+        const searchText = document.getElementById('search-text');
+        let query = '';
+
+        function isURL(str) {
+            return /^(https?:\/\/|www\.|[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,})/.test(str);
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Backspace') {
+                e.preventDefault();
+                query = query.slice(0, -1);
+            } else if (e.key === 'Enter') {
+                e.preventDefault();
+                if (query.trim()) {
+                    const url = isURL(query)
+                        ? (query.startsWith('http') ? query : `http://${query}`)
+                        : `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+                    window.location.href = url;
+                }
+                query = '';
+            } else if (e.key.length === 1) {
+                e.preventDefault();
+                query += e.key;
+            }
+            searchText.textContent = query;
+        });
+
+        // Link Pagination
+        document.addEventListener('DOMContentLoaded', () => {
+            const LINKS_PER_PAGE = 5;
+
+            document.querySelectorAll('.category').forEach(category => {
+                const links = category.querySelector('.links');
+                const toggleBtn = category.querySelector('.toggle-btn');
+                const allLinks = Array.from(links.querySelectorAll('li'));
+
+                let currentPage = 0;
+                const totalPages = Math.ceil(allLinks.length / LINKS_PER_PAGE);
+
+                if (totalPages <= 1) {
+                    toggleBtn.style.display = 'none';
+                    return;
+                }
+
+                function showPage(page) {
+                    allLinks.forEach((link, index) => {
+                        const shouldShow = index >= page * LINKS_PER_PAGE &&
+                                         index < (page + 1) * LINKS_PER_PAGE;
+                        link.style.display = shouldShow ? 'block' : 'none';
+                    });
+                }
+
+                showPage(0);
+
+                toggleBtn.addEventListener('click', () => {
+                    currentPage = (currentPage + 1) % totalPages;
+                    showPage(currentPage);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
