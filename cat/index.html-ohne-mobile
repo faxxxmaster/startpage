@@ -1,136 +1,119 @@
 <!DOCTYPE html>
-
-<!--
-#########################
-#    Faxxxmaster 2025
-#########################
--->
-
 <html lang="de">
-
 <head>
     <meta charset="UTF-8">
     <title>~/startpage</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-
 <body>
     <div class="container">
         <div class="left-container">
             <div class="gif">
-                <img src="cat.gif" />
+                <img src="cat.png" />
             </div>
         </div>
-
         <div class="right-container">
-            <!-- Theme switcher button -->
             <button id="theme-switcher" class="theme-switcher" title="Theme wechseln">
                 <span class="theme-icon">🌙</span>
             </button>
-
-            <!-- Three link buttons added here -->
-            <a href="https://claude.ai/new" class="top-right-link-button button-1" target="_blank"></a>
-            <a href="https://gemini.google.com/app" class="top-right-link-button button-2" target="_blank"></a>
-            <a href="https://chatgpt.com" class="top-right-link-button button-3" target="_blank"></a>
+            <a href="https://claude.ai/new" class="top-right-link-button button-7" target="_blank" title="Claude AI - Anthropics KI-Assistent">🤖</a>
+            <a href="https://gemini.google.com/app" class="top-right-link-button button-6" target="_blank" title="Google Gemini - Googles KI-Chatbot">✨</a>
+            <a href="https://chatgpt.com" class="top-right-link-button button-8" target="_blank" title="ChatGPT - OpenAIs KI-Assistent">💬</a>
+            <a href="https://chat.deepseek.com" class="top-right-link-button button-5" target="_blank" title="DeepSeek - Chinesischer KI-Chatbot">🔍</a>
+            <a href="https://www.perplexity.ai" class="top-right-link-button button-4" target="_blank" title="Perplexity - KI-Suchmaschine mit Quellenangaben">🧠</a>
+            <a href="https://grok.x.com" class="top-right-link-button button-3" target="_blank" title="Grok - X/Twitter KI-Assistent">🚀</a>
+            <a href="https://www.duck.ai" class="top-right-link-button button-1" target="_blank" title="Duck AI - DuckDuckGo KI-Chat">🦆</a>
+            <a href="https://chat.mistral.ai" class="top-right-link-button button-2" target="_blank" title="Le Chat - Mistrals KI-Assistent">💭</a>
             <div class="datetime-container">
                 <div id="current-datetime"></div>
             </div>
             <div class="head">
-                <!-- Modified for search bar functionality -->
-                <span id="prompt-prefix">> cd ~/</span><span id="search-text"></span><span id="blinker" class="blinking">_</span>
+                <span id="prompt-prefix">> Faxxxmaster ~/</span><span id="search-text"></span><span id="blinker" class="blinking">_</span>
             </div>
-
             <div class="bookmarks">
                 <div class="category">
                     <div class="links">
-                        <li class="title">Tools</li>
-                        <li><a href="https://">aaa</a></li>
-                        <li><a href="https://www.deepl.com/de/translator/l/en/de">DeepL</a></li>
+                        <li class="title">[tools]</li>
                         <li><a href="https://pad.faxxxmaster.cc/">DumbPad</a></li>
-                        <li><a href="https://mail.google.com/">gmail</a></li>
-                        <li><a href="https://calendar.google.com/calendar/u/0">calendar</a></li>
-                        <!-- Links beyond the first 5 -->
                         <li><a href="https://www.swisstransfer.com/">SwissTransfer</a></li>
-                        <li><a href="https://www.tailscale.com/">tailscale</a></li>
-                        <li><a href="#">extra 3</a></li>
-                        <li><a href="#">extra 4</a></li>
-		        <li><a href="#">extra 5</a></li>
+                        <li><a href="https://paaster.io/">pastebin</a></li>
+                        <li><a href="https://termbin.com/">termbin</a></li>
+                        <li><a href="https://it-tools.tech/">ItTools</a></li>
+                        <li><a href="https://omnitools.app/">OmniTools</a></li>
+                        <li><a href="https://www.deepl.com/de/translator/l/en/de">DeepL</a></li>
+                        <li><a href="https://translate.liste.cc/">freeTranslate</a></li>
+						<li><a href="https://speed.cloudflare.com/">speedtest</a></li>
+						<li><a href="#">nix</a></li>
                     </div>
                     <button class="toggle-links-button">></button>
                 </div>
-
                 <div class="category">
                     <div class="links">
-                        <li class="title">dev</li>
+                        <li class="title">[dev]</li>
                         <li><a href="https://github.com/faxxxmaster/">GitHub</a></li>
                         <li><a href="https://terminaltrove.com/">terminaltrove</a></li>
                         <li><a href="https://selfh.st/">self-hosted</a></li>
-                        <li><a href="https://noted.lol/">noted</a></li>
                         <li><a href="https://www.trackawesomelist.com/awesome-selfhosted/awesome-selfhosted/">awesome</a></li>
-                        <li><a href="#">extra 1</a></li>
-                        <li><a href="#">extra 2</a></li>
-			<li><a href="#">extra 3</a></li>
-                        <li><a href="#">extra 4</a></li>
-			<li><a href="#">extra 5</a></li>
+                        <li><a href="https://noted.lol/">noted</a></li>
+                        <li><a href="https://wiki.archlinux.org/title/Main_page">ArchWiki</a></li>
+                        <li><a href="https://wiki.cachyos.org/cachyos_basic/download/">CachyOS-Wiki</a></li>
+                       	<li><a href="#">nix</a></li>
+                        <li><a href="#">nix</a></li>
+                       	<li><a href="#">nix</a></li>
                     </div>
                     <button class="toggle-links-button">></button>
                 </div>
-
                 <div class="category">
                     <div class="links">
-                        <li class="title">pics</li>
+                        <li class="title">[pics]</li>
                         <li><a href="https://ultrawidewallpapers.net/">ultrawide</a></li>
                         <li><a href="https://wallhaven.cc/">wallhaven</a></li>
                         <li><a href="https://moewalls.com/">moewalls</a></li>
                         <li><a href="https://www.deviantart.com/">deviantart</a></li>
                         <li><a href="https://www.uhdpaper.com">uhdpaper</a></li>
-                        <li><a href="https://www.myrecipes.com/">recipe</a></li>
-                        <li><a href="#">extra 2</a></li>
-			<li><a href="#">extra 3</a></li>
-                        <li><a href="#">extra 4</a></li>
-			<li><a href="#">extra 5</a></li>
+                        <li><a href="https://www.pxfuel.com/">pxfuel</a></li>
+                        <li><a href="https://www.remove.bg/de/">remove.bg</a></li>
+                        <li><a href="https://mazanoke.com/">mazanoke</a></li>
+                        <li><a href="https://www.photopea.com/">photopea</a></li>
+                        <li><a href="#">nix</a></li>
                     </div>
                     <button class="toggle-links-button">></button>
                 </div>
-
                 <div class="category">
                     <div class="links">
-                        <li class="title">play</li>
+                        <li class="title">[play]</li>
                         <li><a href="https://monkeytype.com/">monkeytype</a></li>
                         <li><a href="https://store.steampowered.com/?l=german/">steam</a></li>
                         <li><a href="https://serienfans.org/">serienfans</a></li>
                         <li><a href="https://filmfans.org">filmfans</a></li>
                         <li><a href="https://boerse.cx">boerse</a></li>
-                        <li><a href="#">extra 1</a></li>
-                        <li><a href="#">extra 2</a></li>
-			<li><a href="#">extra 3</a></li>
-                        <li><a href="#">extra 4</a></li>
-			<li><a href="#">extra 5</a></li>
+                        <li><a href="#">nix</a></li>
+                        <li><a href="#">nix</a></li>
+                        <li><a href="#">nix</a></li>
+                        <li><a href="#">nix</a></li>
+                       	<li><a href="#">nix</a></li>
                     </div>
                     <button class="toggle-links-button">></button>
                 </div>
-
                 <div class="category">
                     <div class="links">
-                        <li class="title">priv</li>
+                        <li class="title">[priv]</li>
                         <li><a href="https://bilder.cienciala.eu/">bilder</a></li>
-                        <li><a href="https://wiki.cienciala.eu">wiki</a></li>
                         <li><a href="https://immich.cienciala.eu">immich</a></li>
-                        <li><a href="https://ksuite.infomaniak.com/">infomaniak</a></li>
+                        <li><a href="https://wiki.cienciala.eu">wiki</a></li>
                         <li><a href="https://mail.google.com/">gmail</a></li>
-                        <li><a href="https://lemmasoft.renai.us/forums/index.php">vn assets</a></li>
-                        <li><a href="https://www.footybite.to/">footybite</a></li>
-                        <li><a href="https://cobalt.tools/">cobalt tools</a></li>
-                        <li><a href="https://bdixtv24.com/live-tv/">bdix</a></li>
-                        <li><a href="https://animepahe.ru">animepahe</a></li>
+                        <li><a href="https://calendar.google.com/calendar/u/0">calendar</a></li>
+                        <li><a href="https://ksuite.infomaniak.com/">infomaniak</a></li>
+                        <li><a href="https://vaultwarden.liste.cc/#/signup">vaultwarden</a></li>
+                        <li><a href="#">nix</a></li>
+                        <li><a href="#">nix</a></li>
+                        <li><a href="#">nix</a></li>
                     </div>
                     <button class="toggle-links-button">></button>
                 </div>
-
                 <div class="category">
                     <div class="links">
-                        <li class="title">social</li>
+                        <li class="title">[social]</li>
                         <li><a href="https://youtube.com/">youtube</a></li>
                         <li><a href="https://x.com/">x</a></li>
                         <li><a href="https://reddit.com/">reddit</a></li>
@@ -138,49 +121,55 @@
                         <li><a href="https://discord.com/channels/862292009423470592/1150723027986813018/">discord</a></li>
                         <li><a href="https://4chan.org/">4chan</a></li>
                         <li><a href="https://www.instagram.com/">instagram</a></li>
-			           <li><a href="https://mynoise.net/">mynoise</a></li>
-                        <li><a href="https://dab.yeet.su/">music</a></li>
-		            	<li><a href="https://animethemes.moe/">animethemes</a></li>
+                        <li><a href="#">nix</a></li>
+                        <li><a href="#">nix</a></li>
+                       	<li><a href="#">nix</a></li>
                     </div>
                     <button class="toggle-links-button">></button>
                 </div>
-
                 <div class="category">
                     <div class="links">
-                        <li class="title">Work</li>
+                        <li class="title">[work]</li>
                         <li><a href="https://inwx.de/">INWX</a></li>
                         <li><a href="https://www.dynadot.com/">DynaDot</a></li>
                         <li><a href="https://www.servercontrolpanel.de/SCP/Home">SCP</a></li>
                         <li><a href="https://www.customercontrolpanel.de/">NCCP</a></li>
-                        <li><a href="https://najmossalahin.github.io/Kanji_Tool/">kanji</a></li>
-                        <li><a href="#">extra 1</a></li>
-                        <li><a href="#">extra 2</a></li>
-			<li><a href="#">extra 3</a></li>
-                        <li><a href="#">extra 4</a></li>
-			<li><a href="#">extra 5</a></li>
+                        <li><a href="#">nix</a></li>
+                        <li><a href="#">nix</a></li>
+                        <li><a href="#">nix</a></li>
+                       	<li><a href="#">nix</a></li>
+                        <li><a href="#">nix</a></li>
+                       	<li><a href="#">nix</a></li>
                     </div>
                     <button class="toggle-links-button">></button>
                 </div>
-
-                <!-- New 'misc' category added for equal distribution into two rows -->
                 <div class="category">
                     <div class="links">
-                        <li class="title">learn</li>
+                        <li class="title">[learn]</li>
                         <li><a href="https://hackthebox.com/">HackTheBox</a></li>
                         <li><a href="https://tryhackme.com/">TryHackMe</a></li>
                         <li><a href="https://overthewire.org/wargames//">OverTheWire</a></li>
                         <li><a href="https://vulnhub.com/single/">VulnHub</a></li>
                         <li><a href="https://bootstrap.academy/">academy</a></li>
                         <li><a href="https://linuxjourney.com/">linuxjourney</a></li>
-                        <li><a href="#">extra 2</a></li>
-                        <li><a href="#">extra 3</a></li>
-                        <li><a href="#">extra 5</a></li>
-                        <li><a href="#">extra 5</a></li>
+                        <li><a href="https://regex101.com/">regex101</a></li>
+                        <li><a href="https://explainshell.com/">explainshell</a></li>
+                        <li><a href="#">nix</a></li>
+                        <li><a href="#">nix</a></li>
                     </div>
                     <button class="toggle-links-button">></button>
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- GitHub Logo -->
+    <div class="github-footer">
+        <a href="https://github.com/faxxxmaster/" target="_blank" title="GitHub Profile">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+        </a>
     </div>
 
     <script>
@@ -202,7 +191,6 @@
         themeSwitcher.addEventListener('click', () => {
             const currentTheme = body.getAttribute('data-theme');
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-
             body.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
             updateThemeIcon(newTheme);
@@ -211,23 +199,18 @@
         // Function to update the clock and date
         function updateDateTime() {
             const now = new Date();
-
-            // Format time for 24-hour clock
             const hours = String(now.getHours()).padStart(2, '0');
             const minutes = String(now.getMinutes()).padStart(2, '0');
             const seconds = String(now.getSeconds()).padStart(2, '0');
             const timeString = `${hours}:${minutes}:${seconds}`;
 
-            // Format date
             const options = { year: 'numeric', month: 'long', day: 'numeric' };
             const dateString = now.toLocaleDateString('de-DE', options);
 
             document.getElementById('current-datetime').textContent = `${dateString} ${timeString}`;
         }
-        // Update the clock every second
-        setInterval(updateDateTime, 1000);
 
-        // Initial call to display the time immediately
+        setInterval(updateDateTime, 1000);
         updateDateTime();
 
         // Search bar functionality
@@ -235,7 +218,6 @@
         const blinkerElement = document.getElementById('blinker');
         let searchQuery = '';
 
-        // Function to validate if a string is a URL
         function isValidUrl(string) {
             const urlRegex = /^(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/[a-zA-Z0-9]+\.[^\s]{2,}|[a-zA-Z0-9]+\.[^\s]{2,})$/i;
             return urlRegex.test(string);
@@ -265,200 +247,91 @@
             } else if (event.key.length === 1) {
                 searchQuery += event.key;
             }
-
             searchTextElement.textContent = searchQuery;
         });
 
         // Pagination for links functionality
         document.addEventListener('DOMContentLoaded', () => {
             const categories = document.querySelectorAll('.category');
-            const linksPerPage = 5; // Number of links to show per page
+            const linksPerPage = 5;
 
             categories.forEach(category => {
                 const linksContainer = category.querySelector('.links');
-                const titleElement = linksContainer.querySelector('.title');
-                // Get all actual link elements, excluding the title
                 const allLinkElements = Array.from(linksContainer.querySelectorAll('li:not(.title)'));
 
-                // Store all original links and current page index on the category element
                 category.allOriginalLinks = allLinkElements;
                 category.currentPage = 0;
 
                 const toggleButton = category.querySelector('.toggle-links-button');
 
-                // Function to display the links for the current page
                 function displayCurrentPage(currentCategory) {
                     const allLinks = currentCategory.allOriginalLinks;
                     const currentPage = currentCategory.currentPage;
                     const startIndex = currentPage * linksPerPage;
                     const endIndex = startIndex + linksPerPage;
 
-                    // Hide all links first
                     allLinks.forEach(link => link.style.display = 'none');
 
-                    // Show only the links for the current page
                     for (let i = startIndex; i < endIndex && i < allLinks.length; i++) {
                         allLinks[i].style.display = 'list-item';
                     }
 
-                    // Update button visibility based on number of pages
                     if (allLinks.length <= linksPerPage) {
-                        toggleButton.style.display = 'none'; // Hide button if no pagination needed
+                        toggleButton.style.display = 'none';
                     } else {
-                        toggleButton.style.display = 'block'; // Show button if pagination is needed
+                        toggleButton.style.display = 'block';
                     }
                 }
 
-                // Initial display of links for each category
                 displayCurrentPage(category);
 
-                // Add click listener to the toggle button
                 toggleButton.addEventListener('click', () => {
-                    category.currentPage++; // Move to the next page
-                    // If we've gone past the last page, loop back to the first page (page 0)
+                    category.currentPage++;
                     if (category.currentPage * linksPerPage >= category.allOriginalLinks.length) {
                         category.currentPage = 0;
                     }
-                    displayCurrentPage(category); // Update the displayed links
+                    displayCurrentPage(category);
                 });
             });
         });
     </script>
 
     <style>
-        /* Dark Theme (Catppuccin Mocha) - Default */
+        /* Theme Variables */
         :root {
-            --color-bg: #1e1e2e;
-            --color-fg: #cdd6f4;
-            --color-link: #89b4fa;
-            --color-link-visited: #cba6f7;
-            --color-link-hover: #f38ba8;
-            --color-border: rgba(205, 214, 244, 0.2);
-            --color-category-bg: rgba(30, 30, 46, 0.8);
-            --color-shadow: rgba(0, 0, 0, 0.3);
-            --color-button-bg: #6c7086;
-            --color-button-hover: #585b70;
+            --color-bg: #000000;
+            --color-fg: #FFFFFF;
+            --color-link: #AAAAAA;
+            --color-link-visited: #999999;
+            --color-link-hover: #FF0000;
+            --color-border: #FFFFFF;
         }
 
-        /* Light Theme (Catppuccin Latte) */
         [data-theme="light"] {
-            --color-bg: #eff1f5;
-            --color-fg: #4c4f69;
-            --color-link: #1e66f5;
-            --color-link-visited: #8839ef;
-            --color-link-hover: #d20f39;
-            --color-border: rgba(76, 79, 105, 0.2);
-            --color-category-bg: rgba(239, 241, 245, 0.8);
-            --color-shadow: rgba(76, 79, 105, 0.1);
-            --color-button-bg: #9ca0b0;
-            --color-button-hover: #8c8fa1;
+            --color-bg: #FFFFFF;
+            --color-fg: #000000;
+            --color-link: #0000FF;
+            --color-link-visited: #0000CC;
+            --color-link-hover: #FF0000;
+            --color-border: #000000;
         }
 
-        /* Theme switcher button */
-        .theme-switcher {
-            position: fixed;
-            top: 15px;
-            left: 15px;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: var(--color-category-bg);
-            border: 2px solid var(--color-border);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            z-index: 1001;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            color: var(--color-fg);
-        }
-
-        .theme-switcher:hover {
-            transform: scale(1.1);
-            box-shadow: 0 4px 12px var(--color-shadow);
-            background-color: var(--color-link-hover);
-            color: var(--color-bg);
-        }
-
-        .theme-icon {
-            transition: transform 0.3s ease;
-            filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
-        }
-
-        .theme-switcher:hover .theme-icon {
-            transform: rotate(15deg);
-            filter: none;
-        }
-
-        /* Apply theme colors to existing elements */
-        html, body {
-            background: var(--color-bg);
-            color: var(--color-fg);
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        .datetime-container {
-            color: var(--color-fg);
-        }
-
-        .category {
-            border: 1px solid var(--color-border);
-            box-shadow: 0 4px 8px var(--color-shadow);
-            background-color: var(--color-category-bg);
-            transition: all 0.3s ease;
-        }
-
-        .top-right-link-button {
-            background-color: var(--color-button-bg);
-            transition: background-color 0.3s ease;
-        }
-
-        .top-right-link-button:hover {
-            background-color: var(--color-button-hover);
-        }
-
-        .toggle-links-button {
-            color: var(--color-link-hover);
-            transition: color 0.3s ease;
-        }
-
-        .toggle-links-button:hover {
-            color: var(--color-fg);
-        }
-
-        a:link {
-            color: var(--color-link);
-            transition: color 0.3s ease;
-        }
-
-        a:visited {
-            color: var(--color-link-visited);
-        }
-
-        a:hover {
-            color: var(--color-link-hover);
-            text-shadow: 0 0 5px var(--color-link-hover);
-        }
-
-        /* Rest of the original CSS remains the same */
+        /* Base Styles */
         html, body {
             font-family: "Fira Code", monospace;
             height: 100%;
-            width: 100%;
             margin: 0;
             padding: 0;
+            background: var(--color-bg);
+            color: var(--color-fg);
             overflow-x: hidden;
-            overflow-y: auto;
-            -ms-overflow-style: none;
-            scrollbar-width: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        html::-webkit-scrollbar {
-            display: none;
-        }
+        html::-webkit-scrollbar { display: none; }
+        html { -ms-overflow-style: none; scrollbar-width: none; }
 
+        /* Layout */
         .container {
             display: grid;
             grid-template-columns: 1fr minmax(450px, 600px) minmax(700px, 1fr) 1fr;
@@ -467,14 +340,12 @@
             justify-items: center;
             align-items: center;
             min-height: 100%;
-            width: 100%;
         }
 
         .left-container {
             grid-area: left;
             aspect-ratio: 1/1;
             max-width: 100%;
-            width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -488,32 +359,85 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding-right: 0px;
-        }
-
-        .datetime-container {
-            font-size: 1.47em;
-            margin-bottom: 20px;
-            text-align: center;
-            width: 100%;
-            box-sizing: border-box;
         }
 
         .gif img {
             max-width: 100%;
             max-height: 100%;
             height: auto;
-            width: auto;
             margin-top: 50px;
         }
 
+        /* Theme Switcher */
+        .theme-switcher {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            width: 40px;
+            height: 40px;
+            background-color: var(--color-bg);
+            border: 2px solid var(--color-border);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            z-index: 1001;
+            transition: all 0.3s ease;
+            color: var(--color-fg);
+        }
+
+        .theme-switcher:hover {
+            background-color: var(--color-fg);
+            color: var(--color-bg);
+        }
+
+        /* AI Buttons */
+        .top-right-link-button {
+            position: fixed;
+            top: 15px;
+            width: 24px;
+            height: 24px;
+            border: 1px solid var(--color-border);
+            cursor: pointer;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.2s ease, color 0.2s ease;
+            background-color: var(--color-bg);
+            color: var(--color-fg);
+        }
+
+        .top-right-link-button:hover {
+            background-color: var(--color-fg);
+            color: var(--color-bg);
+        }
+
+        .button-1 { right: 15px; }
+        .button-2 { right: 47px; }
+        .button-3 { right: 79px; }
+        .button-4 { right: 111px; }
+        .button-5 { right: 143px; }
+        .button-6 { right: 175px; }
+        .button-7 { right: 207px; }
+        .button-8 { right: 239px; }
+
+        /* DateTime */
+        .datetime-container {
+            font-size: 1.47em;
+            margin-bottom: 20px;
+            text-align: center;
+            width: 100%;
+        }
+
+        /* Search Bar */
         .head {
             display: flex;
-            flex-direction: row;
             align-items: center;
             font-size: 33.6px;
-            padding-top: 0px;
-            margin-top: 0px;
             white-space: nowrap;
         }
 
@@ -522,33 +446,33 @@
             vertical-align: middle;
         }
 
+        .blinking {
+            animation: opacity 1s ease-in-out infinite;
+        }
+
+        @keyframes opacity {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Bookmarks */
         .bookmarks {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 20px;
-            justify-content: center;
-            align-items: flex-start;
             width: 100%;
-            box-sizing: border-box;
             margin-top: 40px;
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
-        .bookmarks::-webkit-scrollbar {
-            display: none;
         }
 
         .category {
             display: flex;
             flex-direction: column;
-            flex: 1 1 auto;
             min-width: 90px;
             max-width: 160px;
             text-align: center;
-            box-sizing: border-box;
             padding: 10px;
-            border-radius: 8px;
+            border: 1px solid var(--color-border);
+            transition: all 0.3s ease;
             position: relative;
         }
 
@@ -556,14 +480,15 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding-top: 10px;
-            padding-bottom: 10px;
+            padding: 10px 0;
             width: 100%;
         }
 
         .title {
             font-size: 21px;
             margin-bottom: 5px;
+            color: var(--color-fg);
+            font-weight: bold;
         }
 
         li {
@@ -572,39 +497,22 @@
             padding: 3px;
         }
 
+        /* Links */
         a:link {
+            color: var(--color-link);
             text-decoration: none;
+            transition: color 0.3s ease;
         }
 
-        .blinking {
-            animation: opacity 1s ease-in-out infinite;
-            opacity: 1;
+        a:visited {
+            color: var(--color-link-visited);
         }
 
-        @keyframes opacity {
-            0% { opacity: 1; }
-            50% { opacity: 0; }
-            100% { opacity: 1; }
+        a:hover {
+            color: var(--color-link-hover);
         }
 
-        .top-right-link-button {
-            position: fixed;
-            top: 15px;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            z-index: 1000;
-            display: block;
-            text-decoration: none;
-        }
-
-        .button-1 { right: 15px; }
-        .button-2 { right: 35px; }
-        .button-3 { right: 55px; }
-
+        /* Toggle Button */
         .toggle-links-button {
             background: none;
             border: none;
@@ -613,8 +521,42 @@
             margin-top: 10px;
             padding: 0;
             line-height: 1;
+            color: var(--color-link-hover);
+            transition: color 0.3s ease;
         }
 
+        .toggle-links-button:hover {
+            color: var(--color-fg);
+        }
+
+        /* GitHub Footer */
+        .github-footer {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+        }
+
+        .github-footer a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            color: var(--color-fg);
+            border: 1px solid var(--color-border);
+            background-color: var(--color-bg);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .github-footer a:hover {
+            background-color: var(--color-fg);
+            color: var(--color-bg);
+        }
+
+        /* Responsive Design */
         @media (max-width: 992px) {
             .bookmarks {
                 grid-template-columns: repeat(3, 1fr);
@@ -639,5 +581,4 @@
         }
     </style>
 </body>
-
 </html>
