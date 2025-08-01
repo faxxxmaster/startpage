@@ -2,7 +2,7 @@
 
 A minimalist browser startpage with a terminal-inspired design.
 
-Live: [link](https://www.faxxxmaster.cc)
+Preview: [link](https://www.faxxxmaster.cc)
 
 ##  Features Added
 - Light/Dark theme switcher
