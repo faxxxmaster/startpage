@@ -186,14 +186,14 @@ html { -ms-overflow-style: none; scrollbar-width: none; }
 }
 
 .title {
-    font-size: 21px;
+    font-size: 21x;
     margin-bottom: 5px;
     color: var(--color-fg);
     font-weight: bold;
 }
 
 li {
-    font-size: 16.8px;
+    font-size: 15.8px;
     list-style-type: none;
     padding: 3px;
 }
