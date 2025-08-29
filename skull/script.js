@@ -78,7 +78,7 @@ document.addEventListener('keydown', (event) => {
 // Pagination for links functionality
 document.addEventListener('DOMContentLoaded', () => {
     const categories = document.querySelectorAll('.category');
-    const linksPerPage = 5;
+    const linksPerPage = 6;
 
     categories.forEach(category => {
         const linksContainer = category.querySelector('.links');
