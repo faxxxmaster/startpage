@@ -1,2 +1,2 @@
 Contact: mailto:admin@faxxxmaster.cc
-Preferred-Languages: de, en, pl
+Preferred-Languages: de, en
