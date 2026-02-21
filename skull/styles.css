@@ -117,14 +117,17 @@ html { -ms-overflow-style: none; scrollbar-width: none; }
     color: var(--color-bg);
 }
 
-.button-1 { right: 15px; }
-.button-2 { right: 47px; }
-.button-3 { right: 79px; }
-.button-4 { right: 111px; }
-.button-5 { right: 143px; }
-.button-6 { right: 175px; }
-.button-7 { right: 207px; }
-.button-8 { right: 239px; }
+.button-1  { right: 15px; }
+.button-2  { right: 47px; }
+.button-3  { right: 79px; }
+.button-4  { right: 111px; }
+.button-5  { right: 143px; }
+.button-6  { right: 175px; }
+.button-7  { right: 207px; }
+.button-8  { right: 239px; }
+.button-9  { right: 271px; }
+.button-10 { right: 303px; }
+.button-11 { right: 335px; }
 
 /* DateTime */
 .datetime-container {
@@ -301,14 +304,17 @@ a:hover {
         top: auto;
     }
 
-    .button-1 { right: 15px; left: auto; }
-    .button-2 { right: 47px; left: auto; }
-    .button-3 { right: 79px; left: auto; }
-    .button-4 { right: 111px; left: auto; }
-    .button-5 { right: 143px; left: auto; }
-    .button-6 { right: 175px; left: auto; }
-    .button-7 { right: 207px; left: auto; }
-    .button-8 { right: 239px; left: auto; }
+    .button-1  { right: 15px;  left: auto; }
+    .button-2  { right: 47px;  left: auto; }
+    .button-3  { right: 79px;  left: auto; }
+    .button-4  { right: 111px; left: auto; }
+    .button-5  { right: 143px; left: auto; }
+    .button-6  { right: 175px; left: auto; }
+    .button-7  { right: 207px; left: auto; }
+    .button-8  { right: 239px; left: auto; }
+    .button-9  { right: 271px; left: auto; }
+    .button-10 { right: 303px; left: auto; }
+    .button-11 { right: 335px; left: auto; }
 
     /* Move GitHub to bottom left on mobile */
     .github-footer {
@@ -359,12 +365,15 @@ a:hover {
         right: 15px;
     }
 
-    .button-1 { bottom: 15px; }
-    .button-2 { bottom: 47px; }
-    .button-3 { bottom: 79px; }
-    .button-4 { bottom: 111px; }
-    .button-5 { bottom: 143px; }
-    .button-6 { bottom: 175px; }
-    .button-7 { bottom: 207px; }
-    .button-8 { bottom: 239px; }
+    .button-1  { bottom: 15px; }
+    .button-2  { bottom: 47px; }
+    .button-3  { bottom: 79px; }
+    .button-4  { bottom: 111px; }
+    .button-5  { bottom: 143px; }
+    .button-6  { bottom: 175px; }
+    .button-7  { bottom: 207px; }
+    .button-8  { bottom: 239px; }
+    .button-9  { bottom: 271px; }
+    .button-10 { bottom: 303px; }
+    .button-11 { bottom: 335px; }
 }
