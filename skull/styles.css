@@ -128,6 +128,7 @@ html { -ms-overflow-style: none; scrollbar-width: none; }
 .button-9  { right: 271px; }
 .button-10 { right: 303px; }
 .button-11 { right: 335px; }
+.button-12 { right: 367px; }
 
 /* DateTime */
 .datetime-container {
@@ -315,6 +316,7 @@ a:hover {
     .button-9  { right: 271px; left: auto; }
     .button-10 { right: 303px; left: auto; }
     .button-11 { right: 335px; left: auto; }
+    .button-12 { right: 367px; left: auto; }
 
     /* Move GitHub to bottom left on mobile */
     .github-footer {
@@ -376,4 +378,5 @@ a:hover {
     .button-9  { bottom: 271px; }
     .button-10 { bottom: 303px; }
     .button-11 { bottom: 335px; }
+    .button-12 { bottom: 367px; }
 }
