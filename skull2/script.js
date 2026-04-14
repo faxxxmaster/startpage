@@ -36,10 +36,11 @@ searchToggle.addEventListener('click', () => {
   (searchMode === 'google' ? switchLabels[0] : switchLabels[1]).classList.add('active');
   
   if (searchMode === 'google') {
-    renderBookmarks(); // Reset auf Normalansicht
+    // Reset auf Normalansicht
+    if (typeof renderBookmarks === 'function') renderBookmarks();
   } else {
     if (searchQuery.trim()) {
-      filterLinks(searchQuery); // Suche anwenden falls Text vorhanden
+      filterLinks(searchQuery);
     }
   }
 });
@@ -48,8 +49,16 @@ function isValidUrl(str) {
   return /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([\/\w .-]*)*\/?$/.test(str);
 }
 
-// LIVE SUCHE
+// LIVE SUCHE + RESET
 document.addEventListener('keydown', (e) => {
+  // ESC Taste für Reset
+  if (e.key === 'Escape') {
+    searchQuery = '';
+    searchTextEl.textContent = '';
+    if (typeof renderBookmarks === 'function') renderBookmarks();
+    return; // WICHTIG: Stoppt weitere Verarbeitung
+  }
+
   if (e.key === 'Backspace' || e.key === 'Enter' || e.key.length === 1) {
     e.preventDefault();
     
@@ -73,13 +82,13 @@ document.addEventListener('keydown', (e) => {
       if (q) {
         filterLinks(q);
       } else {
-        renderBookmarks(); // Reset wenn Suche leer
+        renderBookmarks(); // Reset wenn leer
       }
     }
   }
 });
 
-// Filtert ALLE Links aus der Config, nicht nur die sichtbaren
+// Filtert ALLE Links aus der Config (nicht nur sichtbare)
 function filterLinks(query) {
   const q = query.toLowerCase();
   const container = document.getElementById('bookmarks');
