@@ -34,9 +34,13 @@ searchToggle.addEventListener('click', () => {
   searchToggle.setAttribute('data-mode', searchMode);
   switchLabels.forEach(l => l.classList.remove('active'));
   (searchMode === 'google' ? switchLabels[0] : switchLabels[1]).classList.add('active');
+  
   if (searchMode === 'google') {
-    document.querySelectorAll('.category-card').forEach(c => c.classList.remove('hidden'));
-    document.querySelectorAll('.link-item').forEach(l => l.classList.remove('hidden'));
+    renderBookmarks(); // Reset auf Normalansicht
+  } else {
+    if (searchQuery.trim()) {
+      filterLinks(searchQuery); // Suche anwenden falls Text vorhanden
+    }
   }
 });
 
@@ -44,48 +48,75 @@ function isValidUrl(str) {
   return /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([\/\w .-]*)*\/?$/.test(str);
 }
 
+// LIVE SUCHE
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Backspace' || e.key === 'Enter' || e.key.length === 1) e.preventDefault();
-  if (e.key === 'Backspace') searchQuery = searchQuery.slice(0, -1);
-  else if (e.key === 'Enter') {
-    const q = searchQuery.trim();
-    if (q) {
-      if (searchMode === 'google') {
+  if (e.key === 'Backspace' || e.key === 'Enter' || e.key.length === 1) {
+    e.preventDefault();
+    
+    if (e.key === 'Backspace') {
+      searchQuery = searchQuery.slice(0, -1);
+    } else if (e.key === 'Enter') {
+      const q = searchQuery.trim();
+      if (q && searchMode === 'google') {
         window.location.href = isValidUrl(q)
           ? (q.startsWith('http') ? q : `http://${q}`)
           : `https://www.google.com/search?q=${encodeURIComponent(q)}`;
-      } else {
-        filterLinks(q);
       }
-    } else {
-      resetFilters();
+    } else if (e.key.length === 1) {
+      searchQuery += e.key;
     }
-    searchQuery = '';
-  } else if (e.key.length === 1) {
-    searchQuery += e.key;
+    
+    searchTextEl.textContent = searchQuery;
+    
+    const q = searchQuery.trim();
+    if (searchMode === 'links') {
+      if (q) {
+        filterLinks(q);
+      } else {
+        renderBookmarks(); // Reset wenn Suche leer
+      }
+    }
   }
-  searchTextEl.textContent = searchQuery;
 });
 
+// Filtert ALLE Links aus der Config, nicht nur die sichtbaren
 function filterLinks(query) {
   const q = query.toLowerCase();
-  document.querySelectorAll('.category-card').forEach(cat => {
-    let match = false;
-    const title = cat.querySelector('.category-title').textContent.toLowerCase();
-    if (title.includes(q)) match = true;
-    cat.querySelectorAll('.link-item').forEach(link => {
-      const textMatch = link.textContent.toLowerCase().includes(q);
-      const urlMatch = link.href.toLowerCase().includes(q);
-      link.classList.toggle('hidden', !(textMatch || urlMatch));
-      if (textMatch || urlMatch) match = true;
-    });
-    cat.classList.toggle('hidden', !match);
-  });
-}
+  const container = document.getElementById('bookmarks');
+  container.innerHTML = ''; // Container leeren für Suchergebnisse
 
-function resetFilters() {
-  document.querySelectorAll('.category-card').forEach(c => c.classList.remove('hidden'));
-  document.querySelectorAll('.link-item').forEach(l => l.classList.remove('hidden'));
+  config.categories.forEach(cat => {
+    // Finde alle Links in dieser Kategorie, die matchen
+    const matchingLinks = cat.links.filter(l => 
+      l.name.toLowerCase().includes(q) || l.url.toLowerCase().includes(q)
+    );
+
+    if (matchingLinks.length > 0) {
+      const card = document.createElement('div');
+      card.className = 'category-card';
+      const header = document.createElement('div');
+      header.className = 'category-header';
+
+      const title = document.createElement('span');
+      title.className = 'category-title';
+      title.textContent = cat.title + ` (${matchingLinks.length})`; // Zeige Anzahl Treffer
+
+      header.appendChild(title);
+
+      const list = document.createElement('div');
+      list.className = 'links-list';
+
+      matchingLinks.forEach(l => {
+        const a = document.createElement('a');
+        a.href = l.url; a.className = 'link-item'; a.textContent = l.name;
+        a.target = '_blank'; a.rel = 'noopener noreferrer';
+        list.appendChild(a);
+      });
+
+      card.append(header, list);
+      container.appendChild(card);
+    }
+  });
 }
 
 // AI Dropdown
@@ -110,11 +141,12 @@ if (typeof config !== 'undefined' && config.aiTools) {
   });
 }
 
-// Render Bookmarks
+// Render Bookmarks (Normale Ansicht mit Pagination)
 function renderBookmarks() {
   const container = document.getElementById('bookmarks');
-  const linksPerPage = 8;
-
+  container.innerHTML = ''; // Sicherstellen, dass Container leer ist
+  const linksPerPage = 7;
+  
   config.categories.forEach(cat => {
     const card = document.createElement('div');
     card.className = 'category-card';
