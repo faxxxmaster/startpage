@@ -446,7 +446,7 @@ BOOKMARKS GRID
 }
 
 .category-card:nth-child(8n+5) {
-  --card-color: #12A89A;
+  --card-color: #E01870;
 }
 
 .category-card:nth-child(8n+6) {
@@ -454,7 +454,7 @@ BOOKMARKS GRID
 }
 
 .category-card:nth-child(8n+7) {
-  --card-color: #E01870;
+  --card-color: #2DA855;
 }
 
 .category-card:nth-child(8n+8) {
