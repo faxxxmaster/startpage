@@ -18,7 +18,8 @@ const config = {
       name: 'homelab', title: 'homelab', links: [
         { name: 'immich', url: 'https://bilder.faxxxmaster.cc' },
         { name: 'wiki', url: 'https://wiki.faxxxmaster.cc' },
-        { name: 'DumbPad', url: 'https://pad.faxxxmaster.cak.com/' },
+        { name: 'DumbPad', url: 'https://pad.faxxxmaster.' },
+        { name: 'DumbDrop', url: 'https://drop.faxxxmaster.cc/' },
         { name: 'Audiobook', url: 'https://audiobook.faxxxmaster.cc/' },
         { name: 'LinkWarden', url: 'http://192.168.122.202:3333' },
         { name: 'vaultwarden', url: 'https://vaultwarden.liste.cc/' }
