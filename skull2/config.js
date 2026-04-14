@@ -30,7 +30,7 @@ const config = {
         { name: 'gmail', url: 'https://mail.google.com/' },
         { name: 'calendar', url: 'https://calendar.google.com/calendar/u/0' },
         { name: 'infomaniak', url: 'https://ksuite.infomaniak.com/' },
-        { name: 'box', url: 'https://box.org/' }
+        { name: 'box', url: 'https://box.com/' }
       ]
     },
 
