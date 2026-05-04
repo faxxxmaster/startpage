@@ -18,7 +18,7 @@ const config = {
       name: 'homelab', title: 'homelab', links: [
         { name: 'immich', url: 'https://bilder.faxxxmaster.cc' },
         { name: 'wiki', url: 'https://wiki.faxxxmaster.cc' },
-        { name: 'DumbPad', url: 'https://pad.faxxxmaster.' },
+        { name: 'DumbPad', url: 'https://pad.faxxxmaster.cc' },
         { name: 'DumbDrop', url: 'https://drop.faxxxmaster.cc/' },
         { name: 'bentopdf', url: 'https://bento.homelab.faxxxmaster.cc/' },
         { name: 'papra', url: 'https://papra.homelab.faxxxmaster.cc/' },
