@@ -1,0 +1,1574 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zeitringe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0A0E1A;
+    --bg-2: #0D1224;
+    --text-primary: #ECEFF4;
+    --text-secondary: #7C87A3;
+    --track: rgba(255,255,255,0.07);
+
+    --c-sek: #4FD8C4;
+    --c-min: #4EA8F0;
+    --c-std: #9B7FF0;
+    --c-tag: #E86FC0;
+    --c-jahr: #F2C94C;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html, body{
+    height: 100%;
+    margin: 0;
+  }
+
+  body{
+    background:
+      radial-gradient(ellipse at 50% 40%, var(--bg-2), var(--bg) 65%);
+    color: var(--text-primary);
+    font-family: 'IBM Plex Sans', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 32px 16px 96px;
+    overflow-x: hidden;
+  }
+
+  .stage{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+    width: 100%;
+    max-width: 1200px;
+  }
+
+  .dial-row{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr min(92vw, 620px) 1fr;
+    align-items: center;
+  }
+
+  .dial-row .dial-wrap{ grid-column: 2; }
+
+  .dial-row .legend{
+    grid-column: 3;
+    justify-self: start;
+    padding-left: 28px;
+  }
+
+  @media (max-width: 1000px){
+    .dial-row{
+      grid-template-columns: 1fr;
+      justify-items: center;
+      gap: 24px;
+    }
+    .dial-row .dial-wrap{ grid-column: 1; }
+    .dial-row .legend{
+      grid-column: 1;
+      justify-self: center;
+      padding-left: 0;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px 18px;
+    }
+  }
+
+  .dial-wrap{
+    position: relative;
+    width: min(92vw, 620px);
+    aspect-ratio: 1 / 1;
+  }
+
+  svg{
+    width: 100%;
+    height: 100%;
+    display: block;
+    transform: rotate(-90deg);
+  }
+
+  .ring-track{
+    fill: none;
+    stroke: var(--track);
+    stroke-width: 15;
+  }
+
+  .ring-progress{
+    fill: none;
+    stroke-width: 15;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.9s linear;
+  }
+
+  .center{
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 4px;
+    pointer-events: none;
+  }
+
+  .center-inner{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    width: 58%;
+  }
+
+  .clock{
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 500;
+    font-size: clamp(16px, 3.6vw, 24px);
+    letter-spacing: 0.02em;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .date{
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 400;
+    font-size: clamp(9px, 1.7vw, 11px);
+    color: var(--text-secondary);
+  }
+
+  .counters{
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .counter-form{
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 16px;
+    border: 1px solid var(--track);
+    border-radius: 14px;
+    background: rgba(255,255,255,0.02);
+  }
+
+  .counter-form-row{
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .counter-field{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+    min-width: 140px;
+  }
+
+  .counter-field > span{
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+
+  .btn-ok{
+    background: var(--text-primary);
+    color: var(--bg);
+    border: 1px solid var(--text-primary);
+    border-radius: 16px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+    padding: 8px 26px;
+    cursor: pointer;
+  }
+
+  .btn-ok:hover{ opacity: 0.85; }
+
+  .btn-text{
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 15px;
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+
+  .btn-text:hover{ color: var(--text-primary); }
+
+  .counter-input{
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--track);
+    color: var(--text-primary);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 16px;
+    padding: 6px 2px;
+    outline: none;
+  }
+
+  .counter-input[type="text"]{
+    flex: 1;
+    min-width: 0;
+  }
+
+  .counter-input[type="date"],
+  .counter-input[type="time"]{
+    color-scheme: dark;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 15px;
+  }
+
+  .counter-input:focus{
+    border-bottom-color: var(--text-primary);
+  }
+
+  .counter-input[type="date"]::-webkit-calendar-picker-indicator,
+  .counter-input[type="time"]::-webkit-calendar-picker-indicator{
+    opacity: 1;
+    width: 22px;
+    height: 22px;
+    padding: 5px;
+    margin-left: 8px;
+    border-radius: 8px;
+    background-color: rgba(255,255,255,0.10);
+    filter: brightness(1.4);
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+
+  .counter-input[type="date"]::-webkit-calendar-picker-indicator:hover,
+  .counter-input[type="time"]::-webkit-calendar-picker-indicator:hover{
+    background-color: rgba(255,255,255,0.22);
+  }
+
+  .counter-add{
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    border: 1px solid var(--track);
+    background: transparent;
+    color: var(--text-primary);
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .counter-add:hover{
+    border-color: var(--text-primary);
+  }
+
+  .counter-toggle{
+    align-self: flex-start;
+    background: none;
+    border: 1px solid var(--track);
+    color: var(--text-secondary);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 15px;
+    padding: 8px 16px;
+    border-radius: 14px;
+    cursor: pointer;
+  }
+
+  .counter-toggle:hover{
+    color: var(--text-primary);
+    border-color: var(--text-primary);
+  }
+
+  .counter-cancel{
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 14px;
+    cursor: pointer;
+    padding: 0 2px;
+    line-height: 1;
+  }
+
+  .counter-cancel:hover{
+    color: var(--text-primary);
+  }
+
+  .counter-save{
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    border: 1px solid var(--track);
+    background: transparent;
+    color: var(--text-primary);
+    font-size: 13px;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .counter-save:hover{
+    border-color: var(--text-primary);
+  }
+
+  .counter-input:focus-visible,
+  .counter-add:focus-visible,
+  .counter-save:focus-visible,
+  .counter-cancel:focus-visible,
+  .counter-toggle:focus-visible,
+  .btn-ok:focus-visible,
+  .btn-danger:focus-visible,
+  .btn-text-sm:focus-visible,
+  .btn-text:focus-visible,
+  .counter-remove:focus-visible,
+  .counter-item:focus-visible{
+    outline: 2px solid var(--text-primary);
+    outline-offset: 2px;
+  }
+
+  .counter-list{
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .counter-item{
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    cursor: pointer;
+  }
+
+  .counter-item:last-child{
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .counter-item-edit{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .counter-item-edit:last-child{
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .counter-item-edit .counter-input[type="text"]{
+    font-size: 16px;
+  }
+
+  .counter-edit-actions{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .counter-head{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .counter-title{
+    font-size: 18px;
+  }
+
+  .counter-hint{
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--c-jahr);
+  }
+
+  .counter-hint[hidden]{ display: none; }
+
+  .counter-note{
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: var(--text-secondary);
+  }
+
+  .counter-repeat{
+    margin-left: 10px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    white-space: nowrap;
+  }
+
+  select.counter-input{
+    color-scheme: dark;
+    font-size: 15px;
+    cursor: pointer;
+  }
+
+  select.counter-input option{
+    background: var(--bg-2);
+    color: var(--text-primary);
+  }
+
+  .counter-remove{
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 14px;
+    cursor: pointer;
+    padding: 0 2px;
+    line-height: 1;
+  }
+
+  .counter-remove:hover{
+    color: var(--text-primary);
+  }
+
+  .counter-confirm{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .counter-confirm-text{
+    font-size: 14px;
+    color: var(--text-secondary);
+  }
+
+  .btn-danger{
+    background: transparent;
+    border: 1px solid #E86F6F;
+    color: #E86F6F;
+    border-radius: 14px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    padding: 4px 14px;
+    cursor: pointer;
+  }
+
+  .btn-danger:hover{
+    background: #E86F6F;
+    color: var(--bg);
+  }
+
+  .btn-text-sm{
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    padding: 4px 8px;
+    cursor: pointer;
+  }
+
+  .btn-text-sm:hover{ color: var(--text-primary); }
+
+  .counter-remaining{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 16px;
+    color: var(--text-secondary);
+  }
+
+  .counter-bar-track{
+    position: relative;
+    height: 8px;
+    border-radius: 4px;
+    background: var(--track);
+  }
+
+  /* Lichtstreifen, der dauerhaft über die ganze Leiste läuft */
+  .counter-bar-track::after{
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.35) 50%, transparent 100%);
+    background-size: 35% 100%;
+    background-repeat: no-repeat;
+    animation: bar-sweep 2.4s linear infinite;
+  }
+
+  .counter-bar-fill{
+    position: relative;
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.6s ease;
+  }
+
+  /* leuchtender, pulsierender Punkt an der Spitze */
+  .counter-bar-fill::after{
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: -6px;
+    width: 12px;
+    height: 12px;
+    margin-top: -6px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 10px 2px currentColor;
+    animation: bar-dot 1.2s ease-in-out infinite;
+  }
+
+  .counter-bar-fill.done::after{
+    display: none;
+  }
+
+  @keyframes bar-sweep{
+    0%   { background-position: -50% 0; }
+    100% { background-position: 150% 0; }
+  }
+
+  @keyframes bar-dot-soft{
+    0%, 100% { opacity: 0.5; }
+    50%      { opacity: 1; }
+  }
+
+  @keyframes bar-dot{
+    0%, 100% { transform: scale(0.8); opacity: 0.6; }
+    50%      { transform: scale(1.25); opacity: 1; }
+  }
+
+  .legend{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+  }
+
+  .legend-item{
+    display: flex;
+    align-items: baseline;
+    gap: 7px;
+    color: var(--text-secondary);
+  }
+
+  .dot{
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    transform: translateY(-1px);
+  }
+
+  .legend-label{
+    color: var(--text-secondary);
+  }
+
+  .legend-value{
+    color: var(--text-primary);
+  }
+
+  .home-link{
+    display: inline-block;
+    margin-top: 48px;
+    padding: 10px 24px;
+    border: 1px solid var(--track);
+    border-radius: 18px;
+    color: var(--text-secondary);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 15px;
+    text-decoration: none;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .home-link:hover{
+    color: var(--text-primary);
+    border-color: var(--text-primary);
+  }
+
+  .home-link:focus-visible{
+    outline: 2px solid var(--text-primary);
+    outline-offset: 2px;
+  }
+
+
+  /* ---------- Einstellungen (Zahnrad, Export/Import) ---------- */
+  .settings{
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    max-width: calc(100vw - 32px);
+  }
+
+  .gear-btn{
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.14);
+    background: var(--bg-2);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s, transform 0.3s;
+  }
+
+  .gear-btn:hover,
+  .gear-btn[aria-expanded="true"]{
+    color: var(--text-primary);
+    border-color: var(--text-primary);
+  }
+
+  .gear-btn[aria-expanded="true"]{ transform: rotate(45deg); }
+
+  .gear-icon{
+    width: 22px;
+    height: 22px;
+    transform: none;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .backup-pill{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    padding: 8px 14px;
+    border-radius: 18px;
+    border: 1px solid rgba(242,201,76,0.5);
+    background: rgba(242,201,76,0.08);
+    color: var(--c-jahr);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+  }
+
+  .backup-pill[hidden]{ display: none; }
+
+  .backup-pill:hover{ background: rgba(242,201,76,0.16); }
+
+  .backup-pill-dot{
+    width: 8px;
+    height: 8px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--c-jahr);
+  }
+
+  .backup-pill-text{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .settings-panel{
+    position: absolute;
+    right: 0;
+    bottom: 56px;
+    width: 300px;
+    max-width: calc(100vw - 32px);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.14);
+    background: var(--bg-2);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+  }
+
+  .settings-panel[hidden]{ display: none; }
+
+  .settings-title{
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  .settings-status{
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+
+  .settings-actions{
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .settings-btn{
+    flex: 1;
+    min-width: 110px;
+    padding: 9px 12px;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.18);
+    background: transparent;
+    color: var(--text-primary);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  .settings-btn:hover{ border-color: var(--text-primary); }
+
+  .import-choice{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    font-size: 13px;
+  }
+
+  .import-choice[hidden]{ display: none; }
+
+  .settings-msg{
+    min-height: 1em;
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+
+  .settings-msg.error{ color: #E86F6F; }
+
+  .gear-btn:focus-visible,
+  .backup-pill:focus-visible,
+  .settings-btn:focus-visible{
+    outline: 2px solid var(--text-primary);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .gear-btn{ transition: none; }
+    .gear-btn[aria-expanded="true"]{ transform: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .ring-progress{ transition: none; }
+    .counter-bar-track::after{ animation: none; opacity: 0; }
+    .counter-bar-fill::after{ animation-name: bar-dot-soft; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <div class="dial-row">
+  <div class="dial-wrap">
+    <svg viewBox="0 0 640 640">
+      <circle class="ring-track" cx="320" cy="320" r="110"></circle>
+      <circle class="ring-track" cx="320" cy="320" r="152"></circle>
+      <circle class="ring-track" cx="320" cy="320" r="194"></circle>
+      <circle class="ring-track" cx="320" cy="320" r="236"></circle>
+      <circle class="ring-track" cx="320" cy="320" r="278"></circle>
+
+      <circle id="r-sek"   class="ring-progress" cx="320" cy="320" r="110" stroke="var(--c-sek)"></circle>
+      <circle id="r-min"   class="ring-progress" cx="320" cy="320" r="152" stroke="var(--c-min)"></circle>
+      <circle id="r-std"   class="ring-progress" cx="320" cy="320" r="194" stroke="var(--c-std)"></circle>
+      <circle id="r-tag"   class="ring-progress" cx="320" cy="320" r="236" stroke="var(--c-tag)"></circle>
+      <circle id="r-jahr"  class="ring-progress" cx="320" cy="320" r="278" stroke="var(--c-jahr)"></circle>
+    </svg>
+
+    <div class="center">
+      <div class="center-inner">
+        <div class="clock" id="clock">00:00:00</div>
+        <div class="date" id="date">–</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><span class="dot" style="background:var(--c-sek)"></span><span class="legend-label">sek</span>&nbsp;<span class="legend-value" id="v-sek">–</span></div>
+    <div class="legend-item"><span class="dot" style="background:var(--c-min)"></span><span class="legend-label">min</span>&nbsp;<span class="legend-value" id="v-min">–</span></div>
+    <div class="legend-item"><span class="dot" style="background:var(--c-std)"></span><span class="legend-label">std</span>&nbsp;<span class="legend-value" id="v-std">–</span></div>
+    <div class="legend-item"><span class="dot" style="background:var(--c-tag)"></span><span class="legend-label">tag</span>&nbsp;<span class="legend-value" id="v-tag">–</span></div>
+    <div class="legend-item"><span class="dot" style="background:var(--c-jahr)"></span><span class="legend-label">jahr</span>&nbsp;<span class="legend-value" id="v-jahr">–</span></div>
+  </div>
+  </div>
+
+  <div class="counters">
+    <div class="counter-list" data-list></div>
+    <div class="counter-toggle-area" data-toggle-area></div>
+  </div>
+
+  <a class="home-link" href="index.html">Startseite</a>
+
+</div>
+
+<div class="settings" id="settings">
+  <div class="settings-panel" id="settings-panel" hidden>
+    <div class="settings-title">Daten sichern</div>
+    <div class="settings-status" id="backup-status">–</div>
+    <div class="settings-actions">
+      <button type="button" class="settings-btn" id="btn-export">Exportieren</button>
+      <button type="button" class="settings-btn" id="btn-import">Importieren</button>
+    </div>
+    <input type="file" id="import-file" accept=".json,application/json" hidden>
+    <div class="import-choice" id="import-choice" hidden>
+      <div id="import-choice-text"></div>
+      <div class="settings-actions">
+        <button type="button" class="settings-btn" id="btn-import-replace">Ersetzen</button>
+        <button type="button" class="settings-btn" id="btn-import-merge">Ergänzen</button>
+      </div>
+      <button type="button" class="btn-text-sm" id="btn-import-cancel" style="align-self:flex-start">Abbrechen</button>
+    </div>
+    <div class="settings-msg" id="settings-msg" role="status" aria-live="polite"></div>
+  </div>
+
+  <button type="button" class="backup-pill" id="backup-pill" hidden>
+    <span class="backup-pill-dot"></span>
+    <span class="backup-pill-text" id="backup-pill-text"></span>
+  </button>
+
+  <button type="button" class="gear-btn" id="gear-btn" aria-label="Einstellungen: Export und Import" aria-expanded="false" aria-controls="settings-panel">
+    <svg class="gear-icon" viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="12" cy="12" r="3"></circle>
+      <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+    </svg>
+  </button>
+</div>
+
+<script>
+  const RADII = {
+    sek: 110, min: 152, std: 194, tag: 236, jahr: 278
+  };
+  const CIRC = {};
+  for(const k in RADII){ CIRC[k] = 2 * Math.PI * RADII[k]; }
+
+  for(const k in CIRC){
+    document.getElementById('r-' + k).style.strokeDasharray = CIRC[k];
+  }
+
+  function pad(n){ return n.toString().padStart(2, '0'); }
+
+  function daysInMonth(year, monthIndex){
+    return new Date(year, monthIndex + 1, 0).getDate();
+  }
+
+  function dayOfYearFraction(now){
+    const start = new Date(now.getFullYear(), 0, 1);
+    const end = new Date(now.getFullYear() + 1, 0, 1);
+    return (now - start) / (end - start);
+  }
+
+  function setRing(key, fraction){
+    const c = CIRC[key];
+    const offset = c * (1 - fraction);
+    document.getElementById('r-' + key).style.strokeDashoffset = offset;
+  }
+
+  const COUNTER_STORAGE_KEY = 'time-rings:counters';
+  const COUNTER_COLORS = ['var(--c-sek)', 'var(--c-min)', 'var(--c-std)', 'var(--c-tag)', 'var(--c-jahr)'];
+
+  let counters = [];
+  try{
+    counters = JSON.parse(localStorage.getItem(COUNTER_STORAGE_KEY) || '[]');
+  } catch(e){
+    counters = [];
+  }
+
+  if(!Array.isArray(counters)) counters = [];
+  let migrated = false;
+  counters.forEach(function(c, i){
+    if(typeof c.color !== 'number'){
+      c.color = i % COUNTER_COLORS.length;
+      migrated = true;
+    }
+  });
+  if(migrated){
+    try{ localStorage.setItem(COUNTER_STORAGE_KEY, JSON.stringify(counters)); } catch(e){}
+  }
+
+  let renderedKey = '';
+  let formOpen = false;
+  let editingId = null;
+  let confirmingId = null;
+
+  function persistCounters(){
+    localStorage.setItem(COUNTER_STORAGE_KEY, JSON.stringify(counters));
+  }
+
+  function escapeHtml(str){
+    return str.replace(/[&<>"']/g, function(ch){
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch];
+    });
+  }
+
+  function toLocalInputValue(date){
+    const p = function(n){ return n.toString().padStart(2, '0'); };
+    return date.getFullYear() + '-' + p(date.getMonth() + 1) + '-' + p(date.getDate()) + 'T' + p(date.getHours()) + ':' + p(date.getMinutes());
+  }
+
+  function readTarget(form){
+    const d = form.querySelector('[data-field="date"]').value;
+    const t = form.querySelector('[data-field="time"]').value;
+    return (d && t) ? d + 'T' + t : '';
+  }
+
+  function diffBreakdown(now, target){
+    let months = (target.getFullYear() - now.getFullYear()) * 12 + (target.getMonth() - now.getMonth());
+    let anchor = new Date(now.getFullYear(), now.getMonth() + months, now.getDate(), now.getHours(), now.getMinutes(), now.getSeconds());
+    if(anchor > target){
+      months -= 1;
+      anchor = new Date(now.getFullYear(), now.getMonth() + months, now.getDate(), now.getHours(), now.getMinutes(), now.getSeconds());
+    }
+    let remainMs = Math.max(0, target - anchor);
+    const days = Math.floor(remainMs / 86400000);
+    remainMs -= days * 86400000;
+    const hours = Math.floor(remainMs / 3600000);
+    remainMs -= hours * 3600000;
+    const minutes = Math.floor(remainMs / 60000);
+    return { months: Math.max(0, months), days, hours, minutes };
+  }
+
+  function formatRemaining(now, target){
+    if(target <= now) return 'erreicht';
+    const br = diffBreakdown(now, target);
+    const years = Math.floor(br.months / 12);
+    const months = br.months % 12;
+    const { days, hours, minutes } = br;
+    const parts = [];
+    if(years > 0) parts.push(years + ' Jahr' + (years === 1 ? '' : 'e'));
+    if(years > 0 || months > 0) parts.push(months + ' Monat' + (months === 1 ? '' : 'e'));
+    if(years > 0 || months > 0 || days > 0) parts.push(days + ' Tag' + (days === 1 ? '' : 'e'));
+    parts.push(hours + ' Std');
+    parts.push(minutes + ' Min');
+    const last = parts.pop();
+    return 'noch ' + (parts.length ? parts.join(', ') + ' und ' : '') + last;
+  }
+
+  function counterProgress(now, c){
+    const target = new Date(c.target);
+    const created = new Date(c.created);
+    if(target <= created) return 100;
+    return Math.min(100, Math.max(0, ((now - created) / (target - created)) * 100));
+  }
+
+  const REPEAT_LABELS = { daily: 'täglich', weekly: 'wöchentlich', monthly: 'monatlich', yearly: 'jährlich' };
+  const REPEAT_VALUES = ['none', 'daily', 'weekly', 'monthly', 'yearly'];
+
+  function colorOf(c){
+    return COUNTER_COLORS[(Number(c.color) || 0) % COUNTER_COLORS.length];
+  }
+
+  function pickColor(list){
+    const used = COUNTER_COLORS.map(function(){ return 0; });
+    list.forEach(function(c){
+      if(typeof c.color === 'number' && c.color >= 0 && c.color < used.length) used[c.color]++;
+    });
+    let best = 0;
+    for(let i = 1; i < used.length; i++){
+      if(used[i] < used[best]) best = i;
+    }
+    return best;
+  }
+
+  function occurrence(anchor, repeat, k){
+    if(repeat === 'daily'){
+      return new Date(anchor.getFullYear(), anchor.getMonth(), anchor.getDate() + k, anchor.getHours(), anchor.getMinutes());
+    }
+    if(repeat === 'weekly'){
+      return new Date(anchor.getFullYear(), anchor.getMonth(), anchor.getDate() + 7 * k, anchor.getHours(), anchor.getMinutes());
+    }
+    const months = repeat === 'yearly' ? 12 * k : k;
+    const y = anchor.getFullYear();
+    const m = anchor.getMonth() + months;
+    const lastDay = new Date(y, m + 1, 0).getDate();
+    return new Date(y, m, Math.min(anchor.getDate(), lastDay), anchor.getHours(), anchor.getMinutes());
+  }
+
+  function advanceRecurring(now){
+    let changed = false;
+    counters.forEach(function(c){
+      const rep = c.repeat || 'none';
+      if(rep === 'none') return;
+      if(new Date(c.target) > now) return;
+      const anchor = new Date(c.anchor || c.target);
+      if(isNaN(anchor)) return;
+      let k = 0;
+      let t = anchor;
+      while(t <= now && k < 20000){
+        k++;
+        t = occurrence(anchor, rep, k);
+      }
+      if(k > 0) c.created = occurrence(anchor, rep, k - 1).toISOString();
+      c.target = t.toISOString();
+      changed = true;
+    });
+    return changed;
+  }
+
+  function nextAfter(anchor, repeat, now){
+    let k = 0;
+    let t = anchor;
+    while(t <= now && k < 20000){
+      k++;
+      t = occurrence(anchor, repeat, k);
+    }
+    return t;
+  }
+
+  function formatDateTime(d){
+    return d.toLocaleString('de-DE', { weekday: 'short', day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }) + ' Uhr';
+  }
+
+  function updatePastHint(form){
+    const hint = form.querySelector('[data-hint]');
+    if(!hint) return;
+    const val = readTarget(form);
+    const target = val ? new Date(val) : null;
+    const now = new Date();
+    if(!target || isNaN(target) || target > now){
+      hint.hidden = true;
+      hint.textContent = '';
+      return;
+    }
+    const rep = form.querySelector('[data-field="repeat"]').value;
+    if(REPEAT_LABELS[rep]){
+      hint.textContent = 'Der Zeitpunkt liegt in der Vergangenheit. Der Counter (' + REPEAT_LABELS[rep] + ') springt direkt zum nächsten Termin: ' + formatDateTime(nextAfter(target, rep, now)) + '.';
+    } else {
+      hint.textContent = 'Der Zeitpunkt liegt in der Vergangenheit. Der Counter wird sofort als erreicht angezeigt.';
+    }
+    hint.hidden = false;
+  }
+
+  function sortedCounters(now){
+    const n = now.getTime();
+    return counters.slice().sort(function(a, b){
+      const ta = new Date(a.target).getTime();
+      const tb = new Date(b.target).getTime();
+      const da = ta <= n;
+      const db = tb <= n;
+      if(da !== db) return da ? 1 : -1;
+      return da ? tb - ta : ta - tb;
+    });
+  }
+
+  function shortRemaining(now, target){
+    const br = diffBreakdown(now, target);
+    const years = Math.floor(br.months / 12);
+    const months = br.months % 12;
+    if(years > 0) return years + ' Jahr' + (years === 1 ? '' : 'e');
+    if(months > 0) return months + ' Monat' + (months === 1 ? '' : 'e');
+    if(br.days > 0) return br.days + ' Tag' + (br.days === 1 ? '' : 'e');
+    if(br.hours > 0) return br.hours + ' Std und ' + br.minutes + ' Min';
+    return br.minutes > 0 ? br.minutes + ' Min' : 'unter 1 Min';
+  }
+
+  function updateTabTitle(now){
+    let next = null;
+    counters.forEach(function(c){
+      const t = new Date(c.target);
+      if(t > now && (!next || t < next)) next = t;
+    });
+    const title = next ? 'noch ' + shortRemaining(now, next) + ' · Zeitringe' : 'Zeitringe';
+    if(document.title !== title) document.title = title;
+  }
+
+  function repeatSelect(value){
+    const opts = [['none', 'Einmalig'], ['daily', 'Täglich'], ['weekly', 'Wöchentlich'], ['monthly', 'Monatlich'], ['yearly', 'Jährlich']];
+    return '<label class="counter-field"><span>Wiederholung</span>' +
+      '<select class="counter-input" data-field="repeat" title="Nach Ablauf springt der Counter automatisch zum nächsten Termin">' +
+      opts.map(function(o){
+        return '<option value="' + o[0] + '"' + (o[0] === value ? ' selected' : '') + '>' + o[1] + '</option>';
+      }).join('') +
+      '</select></label>';
+  }
+
+  function removeControl(c){
+    if(c.id === confirmingId){
+      return '<span class="counter-confirm">' +
+        '<span class="counter-confirm-text">Löschen?</span>' +
+        '<button type="button" class="btn-danger" data-action="confirm-delete" data-id="' + c.id + '">Ja</button>' +
+        '<button type="button" class="btn-text-sm" data-action="cancel-delete">Nein</button>' +
+      '</span>';
+    }
+    return '<button type="button" class="counter-remove" data-action="delete" data-id="' + c.id + '" aria-label="Entfernen">×</button>';
+  }
+
+  function itemTemplate(c, i, now){
+    const target = new Date(c.target);
+    const pct = counterProgress(now, c);
+    const color = colorOf(c);
+    return '<div class="counter-item" data-id="' + c.id + '" data-action="edit" tabindex="0">' +
+      '<div class="counter-head">' +
+        '<span class="counter-title">' + escapeHtml(c.title) +
+          (REPEAT_LABELS[c.repeat] ? '<span class="counter-repeat">↻ ' + REPEAT_LABELS[c.repeat] + '</span>' : '') +
+        '</span>' +
+        removeControl(c) +
+      '</div>' +
+      '<div class="counter-remaining">' + formatRemaining(now, target) + '</div>' +
+      '<div class="counter-bar-track"><div class="counter-bar-fill' + (pct >= 100 ? ' done' : '') + '" style="width:' + pct + '%;background:' + color + ';color:' + color + '"></div></div>' +
+    '</div>';
+  }
+
+  function editTemplate(c){
+    const target = new Date(c.target);
+    const parts = toLocalInputValue(target).split('T');
+    return '<form class="counter-item-edit" data-edit-form data-id="' + c.id + '">' +
+      '<div class="counter-head">' +
+        '<input type="text" class="counter-input" data-field="title" value="' + escapeHtml(c.title) + '" maxlength="28" required>' +
+        removeControl(c) +
+      '</div>' +
+      '<div class="counter-form-row">' +
+        '<label class="counter-field"><span>Datum</span><input type="date" class="counter-input" data-field="date" value="' + parts[0] + '" required></label>' +
+        '<label class="counter-field"><span>Uhrzeit</span><input type="time" class="counter-input" data-field="time" value="' + parts[1] + '" required></label>' +
+        repeatSelect(c.repeat || 'none') +
+      '</div>' +
+      '<div class="counter-hint" data-hint role="status" hidden></div>' +
+      '<div class="counter-edit-actions">' +
+        '<button type="button" class="btn-text" data-action="cancel-edit">Abbrechen</button>' +
+        '<button type="submit" class="btn-ok">OK</button>' +
+      '</div>' +
+    '</form>';
+  }
+
+  function renderList(){
+    const list = document.querySelector('[data-list]');
+    const now = new Date();
+    const sorted = sortedCounters(now);
+    renderedKey = sorted.map(function(c){ return c.id; }).join(',');
+    list.innerHTML = sorted.map(function(c, i){
+      return c.id === editingId ? editTemplate(c) : itemTemplate(c, i, now);
+    }).join('');
+    const editForm = list.querySelector('[data-edit-form]');
+    if(editForm) updatePastHint(editForm);
+  }
+
+  function renderToggleArea(){
+    const area = document.querySelector('[data-toggle-area]');
+    if(formOpen){
+      area.innerHTML =
+        '<form class="counter-form" data-form>' +
+          '<input type="text" class="counter-input" data-field="title" placeholder="Titel" maxlength="28" required>' +
+          '<div class="counter-form-row">' +
+            '<label class="counter-field"><span>Datum</span><input type="date" class="counter-input" data-field="date" required></label>' +
+            '<label class="counter-field"><span>Uhrzeit</span><input type="time" class="counter-input" data-field="time" value="00:00" required></label>' +
+            repeatSelect('none') +
+          '</div>' +
+          '<div class="counter-hint" data-hint role="status" hidden></div>' +
+          '<div class="counter-note">Hinweis: Die Counter werden nur in diesem Browser gespeichert, nicht auf einem Server. Sichere sie regelmäßig über das Zahnrad unten rechts (Exportieren).</div>' +
+          '<div class="counter-edit-actions">' +
+            '<button type="button" class="btn-text" data-action="cancel-form">Abbrechen</button>' +
+            '<button type="submit" class="btn-ok">OK</button>' +
+          '</div>' +
+        '</form>';
+      const titleInput = area.querySelector('[data-field="title"]');
+      if(titleInput) titleInput.focus();
+    } else {
+      area.innerHTML = '<button type="button" class="counter-toggle" data-action="open-form">+ Counter</button>';
+    }
+  }
+
+  function updateLiveCounterValues(){
+    const now = new Date();
+    if(editingId === null){
+      const key = sortedCounters(now).map(function(c){ return c.id; }).join(',');
+      if(key !== renderedKey){ renderList(); return; }
+    }
+    counters.forEach(function(c){
+      if(c.id === editingId) return;
+      const el = document.querySelector('.counter-item[data-id="' + c.id + '"]');
+      if(!el) return;
+      el.querySelector('.counter-remaining').textContent = formatRemaining(now, new Date(c.target));
+      const fill = el.querySelector('.counter-bar-fill');
+      const pct = counterProgress(now, c);
+      fill.style.width = pct + '%';
+      fill.classList.toggle('done', pct >= 100);
+    });
+  }
+
+  const countersEl = document.querySelector('.counters');
+
+  countersEl.addEventListener('click', function(e){
+    const actionEl = e.target.closest('[data-action]');
+    if(!actionEl) return;
+    const action = actionEl.dataset.action;
+
+    if(action === 'open-form'){
+      formOpen = true;
+      renderToggleArea();
+    } else if(action === 'cancel-form'){
+      formOpen = false;
+      renderToggleArea();
+    } else if(action === 'delete'){
+      confirmingId = actionEl.dataset.id;
+      renderList();
+    } else if(action === 'cancel-delete'){
+      confirmingId = null;
+      renderList();
+    } else if(action === 'confirm-delete'){
+      const id = actionEl.dataset.id;
+      counters = counters.filter(function(c){ return c.id !== id; });
+      if(editingId === id) editingId = null;
+      confirmingId = null;
+      persistCounters();
+      renderList();
+    } else if(action === 'cancel-edit'){
+      editingId = null;
+      renderList();
+    } else if(action === 'edit'){
+      editingId = actionEl.dataset.id;
+      renderList();
+      const titleInput = document.querySelector('.counter-item-edit [data-field="title"]');
+      if(titleInput) titleInput.focus();
+    }
+  });
+
+  countersEl.addEventListener('keydown', function(e){
+    if(e.key !== 'Enter' && e.key !== ' ') return;
+    const actionEl = e.target.closest('[data-action="edit"]');
+    if(!actionEl) return;
+    e.preventDefault();
+    editingId = actionEl.dataset.id;
+    renderList();
+    const titleInput = document.querySelector('.counter-item-edit [data-field="title"]');
+    if(titleInput) titleInput.focus();
+  });
+
+  countersEl.addEventListener('submit', function(e){
+    e.preventDefault();
+    if(e.target.matches('[data-form]')){
+      const title = e.target.querySelector('[data-field="title"]').value.trim();
+      const targetVal = readTarget(e.target);
+      if(!title || !targetVal) return;
+      const repeat = e.target.querySelector('[data-field="repeat"]').value;
+      const targetIso = new Date(targetVal).toISOString();
+      const entry = {
+        id: newId(),
+        title: title,
+        target: targetIso,
+        created: new Date().toISOString(),
+        repeat: REPEAT_VALUES.indexOf(repeat) >= 0 ? repeat : 'none',
+        color: pickColor(counters)
+      };
+      if(entry.repeat !== 'none') entry.anchor = targetIso;
+      counters.push(entry);
+      formOpen = false;
+      persistCounters();
+      renderList();
+      renderToggleArea();
+    } else if(e.target.matches('[data-edit-form]')){
+      const id = e.target.dataset.id;
+      const title = e.target.querySelector('[data-field="title"]').value.trim();
+      const targetVal = readTarget(e.target);
+      if(!title || !targetVal) return;
+      const c = counters.find(function(cc){ return cc.id === id; });
+      if(c){
+        const repeatVal = e.target.querySelector('[data-field="repeat"]').value;
+        const repeat = REPEAT_VALUES.indexOf(repeatVal) >= 0 ? repeatVal : 'none';
+        const newTarget = new Date(targetVal).toISOString();
+        c.title = title;
+        if(newTarget !== c.target){
+          c.target = newTarget;
+          if(repeat !== 'none') c.anchor = newTarget;
+        }
+        c.repeat = repeat;
+        if(repeat === 'none') delete c.anchor;
+        else if(!c.anchor) c.anchor = c.target;
+        advanceRecurring(new Date());
+      }
+      editingId = null;
+      persistCounters();
+      renderList();
+    }
+  });
+
+  function onFormChange(e){
+    const form = e.target.closest('[data-form], [data-edit-form]');
+    if(form) updatePastHint(form);
+  }
+  countersEl.addEventListener('input', onFormChange);
+  countersEl.addEventListener('change', onFormChange);
+
+  /* ---------- Export / Import / Backup-Erinnerung ---------- */
+  const EXPORT_KEY = 'time-rings:last-export';
+  const BACKUP_DAYS = 14;
+
+  function newId(){
+    return Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+  }
+
+  function getLastExport(){
+    try{
+      const v = localStorage.getItem(EXPORT_KEY);
+      if(!v) return null;
+      const d = new Date(v);
+      return isNaN(d) ? null : d;
+    } catch(e){ return null; }
+  }
+
+  function daysSince(d){
+    return Math.max(0, Math.floor((Date.now() - d.getTime()) / 86400000));
+  }
+
+  function relDays(n){
+    return n === 0 ? 'heute' : (n === 1 ? 'vor 1 Tag' : 'vor ' + n + ' Tagen');
+  }
+
+  function backupInfo(){
+    const le = getLastExport();
+    if(le) return { exported: true, days: daysSince(le) };
+    const times = counters.map(function(c){ return new Date(c.created).getTime(); }).filter(function(n){ return isFinite(n); });
+    if(!times.length) return null;
+    return { exported: false, days: daysSince(new Date(Math.min.apply(null, times))) };
+  }
+
+  function setText(el, text){
+    if(el.textContent !== text) el.textContent = text;
+  }
+
+  function updateBackupHint(){
+    const info = backupInfo();
+    const status = document.getElementById('backup-status');
+    const pill = document.getElementById('backup-pill');
+    const pillText = document.getElementById('backup-pill-text');
+    if(!info){
+      setText(status, 'Noch keine Counter vorhanden.');
+      pill.hidden = true;
+      return;
+    }
+    const text = info.exported ? 'Letzter Export: ' + relDays(info.days) : 'Noch nie exportiert';
+    setText(status, text);
+    const due = info.days > BACKUP_DAYS;
+    pill.hidden = !due;
+    if(due) setText(pillText, 'Backup fällig · ' + text.charAt(0).toLowerCase() + text.slice(1));
+  }
+
+  function setMsg(text, isError){
+    const el = document.getElementById('settings-msg');
+    el.textContent = text;
+    el.classList.toggle('error', !!isError);
+  }
+
+  function exportCounters(){
+    const data = {
+      app: 'zeitringe',
+      version: 2,
+      exported: new Date().toISOString(),
+      counters: counters
+    };
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'zeitringe-counter-' + toLocalInputValue(new Date()).slice(0, 10) + '.json';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+    try{ localStorage.setItem(EXPORT_KEY, new Date().toISOString()); } catch(e){}
+    updateBackupHint();
+    setMsg(counters.length + ' Counter exportiert.', false);
+  }
+
+  function sanitizeImported(raw){
+    const list = Array.isArray(raw) ? raw : (raw && Array.isArray(raw.counters) ? raw.counters : null);
+    if(!list) return null;
+    const out = [];
+    const seen = {};
+    list.forEach(function(c){
+      if(!c || typeof c.title !== 'string') return;
+      const target = new Date(c.target);
+      if(isNaN(target)) return;
+      let created = new Date(c.created);
+      if(isNaN(created)) created = new Date();
+      let id = (typeof c.id === 'string' && /^[a-z0-9]{1,40}$/i.test(c.id)) ? c.id : newId();
+      if(seen[id]) id = newId();
+      seen[id] = true;
+      const repeat = REPEAT_VALUES.indexOf(c.repeat) >= 0 ? c.repeat : 'none';
+      const entry = {
+        id: id,
+        title: c.title.trim().slice(0, 28) || 'Counter',
+        target: target.toISOString(),
+        created: created.toISOString(),
+        repeat: repeat
+      };
+      if(repeat !== 'none'){
+        const anchor = new Date(c.anchor);
+        entry.anchor = isNaN(anchor) ? entry.target : anchor.toISOString();
+      }
+      if(typeof c.color === 'number' && c.color >= 0 && c.color < COUNTER_COLORS.length && Math.floor(c.color) === c.color){
+        entry.color = c.color;
+      }
+      out.push(entry);
+    });
+    out.forEach(function(entry){
+      if(typeof entry.color !== 'number') entry.color = pickColor(out);
+    });
+    return out;
+  }
+
+  let pendingImport = null;
+  let pendingExported = null;
+
+  function adoptExportDate(d){
+    if(!d) return;
+    const le = getLastExport();
+    if(le && d <= le) return;
+    try{ localStorage.setItem(EXPORT_KEY, d.toISOString()); } catch(e){}
+  }
+
+  function closeImportChoice(){
+    pendingImport = null;
+    pendingExported = null;
+    document.getElementById('import-choice').hidden = true;
+  }
+
+  function finishImport(){
+    editingId = null;
+    confirmingId = null;
+    advanceRecurring(new Date());
+    persistCounters();
+    renderList();
+    updateBackupHint();
+    closeImportChoice();
+  }
+
+  function handleImportFile(file){
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onerror = function(){ setMsg('Datei konnte nicht gelesen werden.', true); };
+    reader.onload = function(){
+      let parsed;
+      try{ parsed = JSON.parse(reader.result); }
+      catch(e){ setMsg('Ungültige Datei: kein gültiges JSON.', true); return; }
+      const list = sanitizeImported(parsed);
+      if(!list || !list.length){
+        closeImportChoice();
+        setMsg('Keine gültigen Counter in der Datei gefunden.', true);
+        return;
+      }
+      let fileExported = null;
+      if(parsed && typeof parsed.exported === 'string'){
+        const d = new Date(parsed.exported);
+        if(!isNaN(d)) fileExported = d;
+      }
+      if(counters.length === 0){
+        counters = list;
+        adoptExportDate(fileExported);
+        finishImport();
+        setMsg(list.length + ' Counter importiert.', false);
+        return;
+      }
+      pendingImport = list;
+      pendingExported = fileExported;
+      document.getElementById('import-choice-text').textContent =
+        list.length + ' Counter in der Datei. Bestehende ersetzen oder ergänzen?';
+      document.getElementById('import-choice').hidden = false;
+      setMsg('', false);
+    };
+    reader.readAsText(file);
+  }
+
+  const gearBtn = document.getElementById('gear-btn');
+  const settingsPanel = document.getElementById('settings-panel');
+  const importFile = document.getElementById('import-file');
+
+  function setPanel(open){
+    settingsPanel.hidden = !open;
+    gearBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if(!open){ closeImportChoice(); setMsg('', false); }
+    else updateBackupHint();
+  }
+
+  gearBtn.addEventListener('click', function(){ setPanel(settingsPanel.hidden); });
+  document.getElementById('backup-pill').addEventListener('click', function(){ setPanel(true); });
+
+  document.addEventListener('click', function(e){
+    if(!settingsPanel.hidden && !e.target.closest('#settings')) setPanel(false);
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && !settingsPanel.hidden){ setPanel(false); gearBtn.focus(); }
+  });
+
+  document.getElementById('btn-export').addEventListener('click', exportCounters);
+  document.getElementById('btn-import').addEventListener('click', function(){ importFile.click(); });
+  importFile.addEventListener('change', function(){
+    handleImportFile(importFile.files[0]);
+    importFile.value = '';
+  });
+
+  document.getElementById('btn-import-replace').addEventListener('click', function(){
+    if(!pendingImport) return;
+    const n = pendingImport.length;
+    counters = pendingImport;
+    adoptExportDate(pendingExported);
+    finishImport();
+    setMsg(n + ' Counter importiert (ersetzt).', false);
+  });
+
+  document.getElementById('btn-import-merge').addEventListener('click', function(){
+    if(!pendingImport) return;
+    const existing = {};
+    counters.forEach(function(c){ existing[c.id] = true; });
+    let added = 0;
+    pendingImport.forEach(function(c){
+      if(existing[c.id]) return;
+      counters.push(c);
+      added++;
+    });
+    const skipped = pendingImport.length - added;
+    finishImport();
+    setMsg(added + ' hinzugefügt' + (skipped ? ', ' + skipped + ' bereits vorhanden' : '') + '.', false);
+  });
+
+  document.getElementById('btn-import-cancel').addEventListener('click', closeImportChoice);
+
+  renderList();
+  renderToggleArea();
+
+  function tick(){
+    const now = new Date();
+
+    const secFrac  = (now.getSeconds()) / 60;
+    const minFrac  = (now.getMinutes() * 60 + now.getSeconds()) / 3600;
+    const hourFrac = (now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds()) / 86400;
+    const dim      = daysInMonth(now.getFullYear(), now.getMonth());
+    const dayFrac  = ((now.getDate() - 1) + hourFrac) / dim;
+    const yearFrac = dayOfYearFraction(now);
+
+    setRing('sek', secFrac);
+    setRing('min', minFrac);
+    setRing('std', hourFrac);
+    setRing('tag', dayFrac);
+    setRing('jahr', yearFrac);
+
+    document.getElementById('clock').textContent =
+      pad(now.getHours()) + ':' + pad(now.getMinutes()) + ':' + pad(now.getSeconds());
+
+    document.getElementById('date').textContent =
+      now.toLocaleDateString('de-DE', { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' });
+
+    document.getElementById('v-sek').textContent   = now.getSeconds() + '/60';
+    document.getElementById('v-min').textContent   = now.getMinutes() + '/60';
+    document.getElementById('v-std').textContent   = now.getHours() + '/24';
+    document.getElementById('v-tag').textContent   = now.getDate() + '/' + dim;
+    document.getElementById('v-jahr').textContent  = Math.round(yearFrac * 100) + '%';
+
+    if(advanceRecurring(now)) persistCounters();
+    updateLiveCounterValues();
+    updateBackupHint();
+    updateTabTitle(now);
+  }
+
+  tick();
+  setInterval(tick, 1000);
+</script>
+
+</body>
+</html>

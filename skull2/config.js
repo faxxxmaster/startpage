@@ -16,24 +16,23 @@ const config = {
   categories: [
     {
       name: 'homelab', title: 'homelab', links: [
-        { name: 'immich', url: 'https://bilder.faxxxmaster.cc' },
-        { name: 'wiki', url: 'https://wiki.faxxxmaster.cc' },
+        { name: 'Immich', url: 'https://bilder.faxxxmaster.cc' },
+        { name: 'Wiki', url: 'https://wiki.faxxxmaster.cc' },
+        { name: 'MdEdit', url: 'https://mdedit.homelab.faxxxmaster.cc/' },
         { name: 'DumbPad', url: 'https://pad.faxxxmaster.cc' },
         { name: 'DumbDrop', url: 'https://drop.faxxxmaster.cc/' },
-        { name: 'bentopdf', url: 'https://bento.homelab.faxxxmaster.cc/' },
-        { name: 'papra', url: 'https://papra.homelab.faxxxmaster.cc/' },
+        { name: 'Bentopdf', url: 'https://bento.homelab.faxxxmaster.cc/' },
         { name: 'Audiobook', url: 'https://audiobook.faxxxmaster.cc/' },
-        { name: 'LinkWarden', url: 'http://192.168.122.202:3333' },
-        { name: 'vaultwarden', url: 'https://vaultwarden.liste.cc/' }
+        { name: 'Vaultwarden', url: 'https://vaultwarden.liste.cc/' }
       ]
     },
 
     {
       name: 'priv', title: 'priv', links: [
-        { name: 'gmail', url: 'https://mail.google.com/' },
-        { name: 'calendar', url: 'https://calendar.google.com/calendar/u/0' },
-        { name: 'infomaniak', url: 'https://ksuite.infomaniak.com/' },
-        { name: 'box', url: 'https://box.com/' }
+        { name: 'Gmail', url: 'https://mail.google.com/' },
+        { name: 'Calendar', url: 'https://calendar.google.com/calendar/u/0' },
+        { name: 'Infomaniak', url: 'https://ksuite.infomaniak.com/' },
+        { name: 'Box', url: 'https://box.com/' }
       ]
     },
 
@@ -41,13 +40,13 @@ const config = {
       name: 'tools', title: 'tools', links: [
 
         { name: 'SwissTransfer', url: 'https://www.swisstransfer.com/' },
-        { name: 'pastebin', url: 'https://paaster.io/' },
+        { name: 'Pastebin', url: 'https://paaster.io/' },
         { name: 'ItTools', url: 'https://it-tools.tech/' },
         { name: 'OmniTools', url: 'https://omnitools.app/' },
         { name: 'DeepL', url: 'https://www.deepl.com/de/translator/l/en/de' },
-        { name: 'freeTranslate', url: 'https://translate.liste.cc/' },
-        { name: 'termbin', url: 'https://termbin.com/' },
-        { name: 'speedtest', url: 'https://speed.cloudflare.com/' },
+        { name: 'FreeTranslate', url: 'https://translate.liste.cc/' },
+        { name: 'Termbin', url: 'https://termbin.com/' },
+        { name: 'Speedtest', url: 'https://speed.cloudflare.com/' },
         { name: 'LibreTranslate', url: 'https://libretranslate.com/' }
       ]
     },
@@ -55,17 +54,18 @@ const config = {
     {
       name: 'dev', title: 'dev', links: [
         { name: 'GitHub', url: 'https://github.com/faxxxmaster/' },
-        { name: 'terminaltrove', url: 'https://terminaltrove.com/' },
-        { name: 'self-hosted', url: 'https://selfh.st/' },
-        { name: 'awesome', url: 'https://www.trackawesomelist.com/awesome-selfhosted/awesome-selfhosted/' },
-        { name: 'noted', url: 'https://noted.lol/' },
-        { name: 'selfhosted', url: 'https://awesome-selfhosted.net/' },
+        { name: 'Terminaltrove', url: 'https://terminaltrove.com/' },
+		{ name: 'AwesomeTUI', url: 'https://awesometui.com/' },
+        { name: 'Self-hosted', url: 'https://selfh.st/' },
+        { name: 'Awesome', url: 'https://www.trackawesomelist.com/awesome-selfhosted/awesome-selfhosted/' },
+        { name: 'Noted', url: 'https://noted.lol/' },
+        { name: 'Selfhosted', url: 'https://awesome-selfhosted.net/' },
         { name: 'ArchWiki', url: 'https://wiki.archlinux.org/title/Main_page' },
         { name: 'CachyWiki', url: 'https://wiki.cachyos.org/cachyos_basic/download/' },
         { name: 'CachyForum', url: 'https://discuss.cachyos.org/' },
         { name: 'CachyRep', url: 'https://dashboard.cachyos.org/' },
         { name: 'CachyMirror', url: 'https://mirror.cachyos.org/' },
-        { name: 'newreleases', url: 'https://newreleases.io/' }
+        { name: 'Newreleases', url: 'https://newreleases.io/' }
       ]
     },
 
