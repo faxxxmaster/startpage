@@ -92,7 +92,10 @@ const config = {
         { name: 'steam', url: 'https://store.steampowered.com/?l=german/' },
         { name: 'serienfans', url: 'https://serienfans.org/' },
         { name: 'filmfans', url: 'https://filmfans.org' },
-        { name: 'boerse', url: 'https://boerse.cx' }
+        { name: 'boerse', url: 'https://boerse.cx' },
+        { name: 'load.me', url: 'https://www.data-load.me' },
+        { name: 'huggingface', url: 'https://huggingface.co/' }
+
       ]
     },
 
